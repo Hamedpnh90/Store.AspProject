@@ -1,10 +1,18 @@
-﻿
+﻿@using Store.AspProject.DataLayer.UserViewModel
+@model UserRegisterViewModel
 
 
 
 
 <div class="contanier">
-
+    @if(ViewBag.User==null)
+    {
+        <div class="alert alert-danger">
+            <p>
+                قبلا از این ایمیل یا نام کاربری استفاده شده است 
+            </p>
+        </div>
+    }
     <div class="row">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -17,24 +25,29 @@
 
     <div class="row justify-content-center">
         <div class="col-4" style="border: 2px solid #f184b5 ;padding:30px 20px; ">
-            <form>
+            <form  asp-controller="Account" asp-action="Register" method="post">
                 <div class="form-group">
                     <label for="exampleInputEmail1">نام کاربری</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="نام کاربری خود را وارد کنید">
+                    <input type="text" class="form-control" asp-for="UserName" placeholder="نام کاربری خود را وارد کنید">
 
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">ایمیل</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ایمیل خود را وارد کنید">
+                    <input type="email" class="form-control" asp-for="UserEmail"  placeholder="ایمیل خود را وارد کنید">
                     <small id="emailHelp" class="form-text text-muted"></small>
+                </div>
+                 <div class="form-group">
+                    <label for="exampleInputEmail1">موبایل</label>
+                    <input type="month" class="form-control" asp-for="mobile" placeholder="شماره همرا خود را وارد کنید">
+                   
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">رمز عبور</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="رمز خود را وارد کنید">
+                    <input type="password" class="form-control" asp-for="PassWord" placeholder="رمز خود را وارد کنید">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">تکرار رمز عبور</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="تکرار رمز عبور">
+                    <input type="password" class="form-control" asp-for="Repassword" placeholder="تکرار رمز عبور">
                 </div>
                
                 <button type="submit" class="btn btn-primary ">عضویت</button>
