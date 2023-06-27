@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Store.AspProject.DataLayer.Context;
+using Store.AspProject.Services.Interfces;
+using Store.AspProject.Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,10 @@ builder.Services.AddDbContext<AspStoreDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("StoreAspProject"));
 });
+#endregion
+
+#region IOC
+builder.Services.AddScoped<IUserService,UserService>();
 #endregion
 
 var app = builder.Build();
