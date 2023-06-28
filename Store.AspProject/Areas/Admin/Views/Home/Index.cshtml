@@ -1,4 +1,53 @@
-﻿
+﻿@using Store.AspProject.DataLayer.Models.User
+@model IEnumerable<User>
 
 
-<h1>پنل ادمین </h1>
+
+
+
+
+<section class="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover no-wrap myTable">
+                            <thead>
+                                <tr class="bg-secondary">
+                                    <th scope="col">نام کاربری</th>
+                                    <th scope="col">ایمیل</th>
+                                    <th scope="col">شماره موبایل</th>
+                                    <th scope="col">وضعیت</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (Model != null && Model.Any())
+                                {
+                                    @foreach (var item in @Model)
+                                    {
+                                        <tr>
+                                            <th>@item.UserName</th>
+                                            <td>@item.UserEmail</td>
+                                            <td>@item.UserMobile</td>
+                                            <td>@item.IsAdmin</td>
+                                            <td>
+                                                <a class="btn btn-warning">ویرایش</a>
+                                                <a class="btn btn-danger">حذف</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+

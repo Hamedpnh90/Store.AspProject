@@ -18,8 +18,11 @@
 
     <!-- SB Admin CSS - Include with every page -->
     <link href="/Admin/css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+   
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+  
+   
 </head>
 
 <body>
@@ -254,7 +257,7 @@
 
         <div id="page-wrapper">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-8">
                     @RenderBody()
                 </div>
                 <!-- /.col-lg-12 -->
@@ -734,8 +737,11 @@
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="/Admin/js/demo/dashboard-demo.js"></script>
-    <script src="/Admin/js/cutom_js.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script src="/Admin/js/custom_js.js"></script>
+
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+ @RenderSection("Scsript",false)
 
 </body>
 
