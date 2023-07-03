@@ -15,7 +15,10 @@ builder.Services.AddDbContext<AspStoreDbContext>(options =>
 #endregion
 
 #region IOC
-builder.Services.AddScoped<IUserService,UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+
+
 #endregion
 
 var app = builder.Build();
@@ -44,19 +47,19 @@ app.UseAuthorization();
 /// / app.UseEndpoints(endpoints =>
 
 
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapControllerRoute(
-          name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}"); 
-        endpoints.MapControllerRoute(
-         name: "areas",
-            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                 );
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+      name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapControllerRoute(
+     name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+             );
 
 
 
-    });
+});
 
 
 

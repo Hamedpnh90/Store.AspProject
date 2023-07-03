@@ -49,6 +49,12 @@ namespace Store.AspProject.Controllers
         {
             return View();
         }
+
+        [HttpPost("Login")]
+        public IActionResult Login(UserLoginViewModel login)
+        {
+            return View();
+        }
         #endregion
     }
 }

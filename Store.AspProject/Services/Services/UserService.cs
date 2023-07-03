@@ -7,7 +7,7 @@ namespace Store.AspProject.Services.Services
 {
     public class UserService : IUserService
     {
-
+        IRepository<User> UserRepository;
         AspStoreDbContext _context;
 
         public UserService(AspStoreDbContext context)
