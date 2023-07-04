@@ -34,5 +34,20 @@ namespace Store.AspProject.Areas.Admin.Controllers
             _UserService.EditUserByAdmin(id, editUser);
             return Redirect("/Admin");   
         }
+        [HttpGet("Admin/Delete/{id}")]
+        public IActionResult DeleteUser(int id)
+        {
+            var user=_UserService.GetUserById(id);  
+            return View(user);  
+        }
+
+        [HttpPost("Admin/Delete/")]
+        public IActionResult DeletUser(User user)
+        {
+            _UserService.DeleteUser(user.User_ID);
+
+
+            return Redirect("/admin");
+        }
     }
 }

@@ -1,0 +1,23 @@
+﻿@using Store.AspProject.DataLayer.Models.User
+@model User
+
+
+
+
+    <div class="row">
+   <form asp-area="Admin" asp-action="DeletUser" method="post">
+       <input type="hidden" asp-for="User_ID" />
+        <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">حذف کاربر</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">@Model.UserEmail </h6>
+            <p class="card-text">آیا از حذف کاربر فوق مطمئن هستید ؟</p>
+            <button type="submit" class="btn btn-danger"  @*asp-route-Id="@Model.User_ID"*@ >
+                حذف
+            </button>
+            <a href="/admin" class="card-link">انصراف </a>
+        </div>
+    </div>
+   </form>
+</div>
+

@@ -22,9 +22,12 @@ namespace Store.AspProject.Services.Services
 
             if (user == null) return false;
 
-            _context.users.Remove(user);
-            _context.SaveChanges();
-            return true;
+            user.IsDeleted = true;
+
+            
+            return EditeUser(user);
+
+           
         }
 
         public bool EditeUser(User user)
