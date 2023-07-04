@@ -10,6 +10,10 @@ namespace Store.AspProject.Services.Interfces
 
         User GetUserById(int id);
 
+
+        bool EditUserByAdmin(int id,EditUserViewModel editUser);
+
+
         bool EditeUser(User user);
 
         bool DeleteUser(int id);

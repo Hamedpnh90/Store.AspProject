@@ -46,7 +46,20 @@ namespace Store.AspProject.Services.Services
             return _context.users.FirstOrDefault(u => u.User_ID == id);
         }
 
+        public bool EditUserByAdmin(int id,EditUserViewModel editUser)
+        {
+            var user = GetUserById(id);
 
+            if(user == null) return false;
+
+            user.IsAdmin = editUser.IsAdmin;    
+            user.UserMobile = editUser.UserMobile;  
+            user.UserEmail = editUser.UserEmail;
+
+            _context.users.Update(user);
+            _context.SaveChanges();
+            return true;
+        }
 
         #region Register
         public User RegisterUser(UserRegisterViewModel userRegister)
@@ -138,6 +151,10 @@ namespace Store.AspProject.Services.Services
 
 
         }
+
+      
+
+
 
         #endregion
     }

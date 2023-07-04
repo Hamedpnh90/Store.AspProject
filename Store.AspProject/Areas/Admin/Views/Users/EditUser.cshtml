@@ -1,0 +1,60 @@
+﻿@using Store.AspProject.DataLayer.Models.User
+@model User
+
+
+<div class="row">
+    <div class="col-lg-12">
+
+        <header><h1> ویرایش حساب کاربری </h1></header>
+
+        <div class="inner form-layer">
+            <form asp-action="EditUser" method="post">
+                <input type="hidden" asp-for="PassWord" />
+                <input type="hidden" asp-for="User_ID" />
+                <input type="hidden" asp-for="UserName" />
+                <input type="hidden" asp-for="UserName" />
+                <div class="row">
+                    <div class="col-md-7 col-sm-8 col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">نام کاربری</span>
+                            <label asp-for="UserName" class="form-control" aria-describedby="username"></label>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-7 col-sm-8 col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">ایمیل </span>
+                            <input type="text" asp-for="UserEmail" class="form-control" placeholder="ایمیل">
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-8 col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"> موبایل</span>
+                            <input type="text" asp-for="UserMobile" class="form-control" placeholder="موبایل">
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-8 col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"> ادمین</span>
+                            <input type="checkbox" asp-for="IsAdmin" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-md-7 col-sm-8 col-xs-12">
+                        <div class="input-group">
+
+                            <button class="btn btn-warning" type="submit" >
+                                ویرایش
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
+    </div>
+
+</div>

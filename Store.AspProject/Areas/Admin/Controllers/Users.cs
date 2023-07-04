@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Store.AspProject.DataLayer.Models.User;
+using Store.AspProject.DataLayer.UserViewModel;
 using Store.AspProject.Services.Interfces;
 
 namespace Store.AspProject.Areas.Admin.Controllers
@@ -17,6 +19,20 @@ namespace Store.AspProject.Areas.Admin.Controllers
         {
             var user=_UserService.GetAllUsers();    
             return View(user);
+        }
+
+        [HttpGet("Admin/EditUser/{id}")]
+        public IActionResult EditUser(int id)
+        {
+            var user=_UserService.GetUserById(id);
+            return View(user);
+        }
+
+        [HttpPost("Admin/EditUser/{id}")]
+        public IActionResult EditUser(int id, EditUserViewModel editUser)
+        {
+            _UserService.EditUserByAdmin(id, editUser);
+            return Redirect("/Admin");   
         }
     }
 }
