@@ -53,6 +53,22 @@ namespace Store.AspProject.Controllers
         [HttpPost("Login")]
         public IActionResult Login(UserLoginViewModel login)
         {
+
+            if(!ModelState.IsValid) return View(login);
+           
+              var res=  _userService.Login(login);
+
+            switch (res)
+            {
+                case UserLoginResualt.success:
+                    ViewBag.res=res;    
+                    return Redirect("/");
+                    break;
+                case UserLoginResualt.WrongPass:
+                    ViewBag.res = res;
+                    return View(login);
+              
+            }
             return View();
         }
         #endregion

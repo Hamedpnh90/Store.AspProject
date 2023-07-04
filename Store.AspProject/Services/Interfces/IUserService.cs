@@ -15,7 +15,13 @@ namespace Store.AspProject.Services.Interfces
         bool DeleteUser(int id);
 
 
+        User FindUserByEmail(string Email);
+
+        bool IsPassWordMatched(string Password,string email);
+
         User RegisterUser(UserRegisterViewModel userRegister);
+
+        UserLoginResualt Login(UserLoginViewModel userLogin);
 
         bool IsUserExist(string Email);
 

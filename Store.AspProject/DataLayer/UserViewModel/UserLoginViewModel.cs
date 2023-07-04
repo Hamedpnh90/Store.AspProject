@@ -12,5 +12,16 @@ namespace Store.AspProject.DataLayer.UserViewModel
         [Display(Name = " رمز عبور")]
         [DataType(DataType.Password)]
         public string? PassWord { get; set; }
+
+        
+    
+      
+    }
+
+    public enum UserLoginResualt
+    {
+        success,
+        WrongPass
+       
     }
 }

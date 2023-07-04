@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stores.Core.Generator
+namespace Store.AspProject.Utilites
 {
     public class NameGenerator
     {

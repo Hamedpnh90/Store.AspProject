@@ -3,7 +3,7 @@ using Store.AspProject.DataLayer.Models.User;
 
 namespace Store.AspProject.DataLayer.Context
 {
-    public class AspStoreDbContext : DbContext, IDbContext
+    public class AspStoreDbContext : DbContext/*, IDbContext*/
     {
 
         public AspStoreDbContext(DbContextOptions<AspStoreDbContext> options):base(options)
@@ -14,9 +14,9 @@ namespace Store.AspProject.DataLayer.Context
 
         public DbSet<User> users { get; set; }
 
-        ISet<TEntity> IDbContext.Set<TEntity>()
-        {
-            return (ISet<TEntity>)base.Set<TEntity>();
-        }
+        //ISet<TEntity> IDbContext.Set<TEntity>()
+        //{
+        //    return (ISet<TEntity>)base.Set<TEntity>();
+        //}
     }
 }

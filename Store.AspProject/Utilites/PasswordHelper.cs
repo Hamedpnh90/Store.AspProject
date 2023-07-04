@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace TopLearn.Core.Security
+namespace Store.AspProject.Utilites
 {
     public static class PasswordHelper
     {

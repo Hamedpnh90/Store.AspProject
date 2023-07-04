@@ -2,6 +2,8 @@
 using Store.AspProject.DataLayer.Models.User;
 using Store.AspProject.DataLayer.UserViewModel;
 using Store.AspProject.Services.Interfces;
+using Store.AspProject.Utilites;
+using static Store.AspProject.Utilites.FixEmail;
 
 namespace Store.AspProject.Services.Services
 {
@@ -51,14 +53,16 @@ namespace Store.AspProject.Services.Services
         {
             if (!IsUserExist(userRegister.UserEmail) && !IsUserNameExist(userRegister.UserName))
             {
+
+                
                 User user = new User()
                 {
                     UserName = userRegister.UserName,
-                    UserEmail = userRegister.UserEmail,
+                    UserEmail = FixEmails.FixEmail(userRegister.UserEmail),
                     CreatedDate = DateTime.Now,
                     IsAdmin = false,
                     IsDeleted = false,
-                    PassWord = userRegister.PassWord,
+                    PassWord = PasswordHelper.EncodePasswordMd5(userRegister.PassWord) ,
                     UserMobile = userRegister.mobile
 
                 };
@@ -76,7 +80,7 @@ namespace Store.AspProject.Services.Services
         public bool IsUserExist(string Email)
         {
            var email=Email.ToLower();
-            var res= _context.users.Any(u=>u.UserEmail == email);
+            var res = _context.users.Any(u => u.UserEmail == FixEmails.FixEmail(email));
             return res;
         }
 
@@ -87,6 +91,54 @@ namespace Store.AspProject.Services.Services
 
             return res;
         }
+        #endregion
+
+
+        #region Login
+
+        public UserLoginResualt Login(UserLoginViewModel userLogin)
+        {
+            var HasHPass=PasswordHelper.EncodePasswordMd5(userLogin.PassWord);  
+            var UserEmail=FixEmails.FixEmail(userLogin.UserEmail);  
+
+             var res= IsPassWordMatched(HasHPass,UserEmail);  
+
+            if(res)
+            {
+               return UserLoginResualt.success;
+            }
+
+            return UserLoginResualt.WrongPass;
+
+        }
+
+        public User FindUserByEmail(string Email)
+        {
+            return _context.users.FirstOrDefault(u=>u.UserEmail == Email);  
+        }
+
+        public bool IsPassWordMatched(string Password, string email)
+        {
+            var user=FindUserByEmail(email);
+
+            if (user!=null)
+            {
+                if (user.PassWord == Password)
+                {
+                    return true;
+                }
+
+                else
+                {
+                    return false;   
+                }
+            }
+
+            return false;
+
+
+        }
+
         #endregion
     }
 }
