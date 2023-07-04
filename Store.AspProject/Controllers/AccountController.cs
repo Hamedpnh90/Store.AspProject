@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Store.AspProject.DataLayer.Models.User;
 using Store.AspProject.DataLayer.UserViewModel;
 using Store.AspProject.Services.Interfces;
+using System.Security.Claims;
+using static Store.AspProject.Utilites.FixEmail;
 
 namespace Store.AspProject.Controllers
 {
@@ -11,7 +15,7 @@ namespace Store.AspProject.Controllers
 
         public AccountController(IUserService userService)
         {
-            _userService = userService; 
+            _userService = userService;
         }
         #region Register
         [HttpGet("Register")]
@@ -23,11 +27,11 @@ namespace Store.AspProject.Controllers
         [HttpPost("Register")]
         public IActionResult Register(UserRegisterViewModel userRegister)
         {
-            if(!ModelState.IsValid) return View();
+            if (!ModelState.IsValid) return View();
 
             User user = _userService.RegisterUser(userRegister);
 
-            if(user != null)
+            if (user != null)
             {
                 ViewBag.User = user;
                 return View("RegisterSucceed", user);
@@ -37,8 +41,8 @@ namespace Store.AspProject.Controllers
                 ViewBag.User = user;
                 return View(userRegister);
             }
-           
-           
+
+
         }
         #endregion
 
@@ -54,22 +58,57 @@ namespace Store.AspProject.Controllers
         public IActionResult Login(UserLoginViewModel login)
         {
 
-            if(!ModelState.IsValid) return View(login);
-           
-              var res=  _userService.Login(login);
+            if (!ModelState.IsValid) return View(login);
 
-            switch (res)
+
+
+
+            var user = _userService.Login(login);
+            //login
+
+            if (user != null)
             {
-                case UserLoginResualt.success:
-                    ViewBag.res=res;    
-                    return Redirect("/");
-                    break;
-                case UserLoginResualt.WrongPass:
-                    ViewBag.res = res;
-                    return View(login);
-              
+                var claims = new List<Claim>()
+                    {
+                        new Claim(ClaimTypes.NameIdentifier,user.User_ID.ToString()),
+                        new Claim(ClaimTypes.Name,user.UserName)
+                    };
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var Principal = new ClaimsPrincipal(identity);
+
+                var propertise = new AuthenticationProperties()
+                {
+                    IsPersistent = login.RememberMe
+                };
+
+                HttpContext.SignInAsync(Principal, propertise);
+
+                return Redirect("/");
             }
+            else
+            {
+                ModelState.AddModelError("UserEmail", "ایمیل شما فعال سازی نشده است ");
+                
+                return View(login);
+            }
+
+
+
+
             return View();
+        }
+        #endregion
+
+
+        #region LogOut
+
+        [Route("LogOut")]
+        public IActionResult LogOut()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return Redirect("/Login");
         }
         #endregion
     }

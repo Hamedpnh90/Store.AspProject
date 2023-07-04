@@ -96,7 +96,7 @@ namespace Store.AspProject.Services.Services
 
         #region Login
 
-        public UserLoginResualt Login(UserLoginViewModel userLogin)
+        public User Login(UserLoginViewModel userLogin)
         {
             var HasHPass=PasswordHelper.EncodePasswordMd5(userLogin.PassWord);  
             var UserEmail=FixEmails.FixEmail(userLogin.UserEmail);  
@@ -105,10 +105,10 @@ namespace Store.AspProject.Services.Services
 
             if(res)
             {
-               return UserLoginResualt.success;
+               return FindUserByEmail(UserEmail);
             }
 
-            return UserLoginResualt.WrongPass;
+            return null;
 
         }
 

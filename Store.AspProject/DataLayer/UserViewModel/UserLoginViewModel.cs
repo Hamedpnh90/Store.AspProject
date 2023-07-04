@@ -12,6 +12,7 @@ namespace Store.AspProject.DataLayer.UserViewModel
         [Display(Name = " رمز عبور")]
         [DataType(DataType.Password)]
         public string? PassWord { get; set; }
+        public bool  RememberMe { get; set; }
 
         
     

@@ -21,7 +21,8 @@ namespace Store.AspProject.Services.Interfces
 
         User RegisterUser(UserRegisterViewModel userRegister);
 
-        UserLoginResualt Login(UserLoginViewModel userLogin);
+        User Login(UserLoginViewModel userLogin);
+  
 
         bool IsUserExist(string Email);
 
