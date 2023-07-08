@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Store.AspProject.DataLayer.Models.Product;
 using Store.AspProject.DataLayer.Models.User;
 
 namespace Store.AspProject.DataLayer.Context
 {
-    public class AspStoreDbContext : DbContext/*, IDbContext*/
+    public class AspStoreDbContext : IdentityDbContext/*, IDbContext*/
     {
 
         public AspStoreDbContext(DbContextOptions<AspStoreDbContext> options):base(options)
@@ -19,6 +21,7 @@ namespace Store.AspProject.DataLayer.Context
         }
 
         public DbSet<User> users { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         //ISet<TEntity> IDbContext.Set<TEntity>()
         //{

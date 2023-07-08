@@ -1,25 +1,20 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Store.AspProject.DataLayer.Context;
+using Store.AspProject.DataLayer.Models.User;
 using Store.AspProject.Services.Interfces;
 using Store.AspProject.Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-#region Claims
+#region Identity4
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-}).AddCookie(options =>
-{
-    options.LoginPath = "/login";
-    options.LogoutPath = "/LogOut";
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(43200);
-});
+builder.Services.AddDefaultIdentity<IdentityUser>().
+    AddEntityFrameworkStores<AspStoreDbContext>().AddDefaultTokenProviders();
+
+
 
 #endregion
 builder.Services.AddControllersWithViews();

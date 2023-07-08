@@ -5,14 +5,10 @@
 
 
 <div class="contanier">
-    @if(ViewBag.User==null)
-    {
-        <div class="alert alert-danger">
-            <p>
-                قبلا از این ایمیل یا نام کاربری استفاده شده است 
-            </p>
-        </div>
-    }
+ 
+   
+
+
     <div class="row">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -26,28 +22,32 @@
     <div class="row justify-content-center">
         <div class="col-4" style="border: 2px solid #f184b5 ;padding:30px 20px; ">
             <form  asp-controller="Account" asp-action="Register" method="post">
+                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">نام کاربری</label>
                     <input type="text" class="form-control" asp-for="UserName" placeholder="نام کاربری خود را وارد کنید">
-
+                    <span asp-validation-for="UserName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">ایمیل</label>
                     <input type="email" class="form-control" asp-for="UserEmail"  placeholder="ایمیل خود را وارد کنید">
+                    <span asp-validation-for="UserEmail" class="text-danger"></span>
                     <small id="emailHelp" class="form-text text-muted"></small>
                 </div>
                  <div class="form-group">
                     <label for="exampleInputEmail1">موبایل</label>
                     <input type="month" class="form-control" asp-for="mobile" placeholder="شماره همرا خود را وارد کنید">
-                   
+                    <span asp-validation-for="mobile" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">رمز عبور</label>
                     <input type="password" class="form-control" asp-for="PassWord" placeholder="رمز خود را وارد کنید">
+                    <span asp-validation-for="PassWord" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">تکرار رمز عبور</label>
                     <input type="password" class="form-control" asp-for="Repassword" placeholder="تکرار رمز عبور">
+                     <span asp-validation-for="Repassword" class="text-danger"></span>
                 </div>
                
                 <button type="submit" class="btn btn-primary ">عضویت</button>
@@ -55,3 +55,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

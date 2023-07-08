@@ -19,7 +19,7 @@ namespace Store.AspProject.DataLayer.Models.User
         [MaxLength(50)]
         public string? UserMobile { get; set; }
 
-        [Required]
+   
  
         public bool IsAdmin { get; set; }
         public bool Rememberme { get; set; }

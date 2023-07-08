@@ -25,28 +25,28 @@ namespace Store.AspProject.Controllers
         }
 
         [HttpPost("Register")]
-        public IActionResult Register(UserRegisterViewModel userRegister)
+        public async Task<IActionResult> Register(UserRegisterViewModel userRegister)
         {
-            if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid) return View(userRegister);
 
-            User user = _userService.RegisterUser(userRegister);
+            var Resualt = await _userService.RegisterUser(userRegister);
 
-            if (user != null)
+              if(!Resualt.Succeeded)
             {
-                ViewBag.User = user;
-                return View("RegisterSucceed", user);
-            }
-            else
-            {
-                ViewBag.User = user;
-                return View(userRegister);
+                foreach (var item in Resualt.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, item.Description);
+                    return View();  
+                }
             }
 
+
+
+            return RedirectToAction("Login");
+
+            #endregion
 
         }
-        #endregion
-
-
         #region Login
         [HttpGet("Login")]
         public IActionResult Login()
@@ -66,37 +66,16 @@ namespace Store.AspProject.Controllers
             var user = _userService.Login(login);
             //login
 
-            if (user != null)
-            {
-                var claims = new List<Claim>()
-                    {
-                        new Claim(ClaimTypes.NameIdentifier,user.User_ID.ToString()),
-                        new Claim(ClaimTypes.Name,user.UserName)
-                    };
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                var Principal = new ClaimsPrincipal(identity);
-
-                var propertise = new AuthenticationProperties()
-                {
-                    IsPersistent = login.RememberMe
-                };
-
-                HttpContext.SignInAsync(Principal, propertise);
+          
 
                 return Redirect("/");
-            }
-            else
-            {
-                ModelState.AddModelError("UserEmail", "ایمیل شما فعال سازی نشده است ");
-                
-                return View(login);
-            }
+           
+           
 
 
 
 
-            return View();
+          
         }
         #endregion
 
@@ -106,7 +85,7 @@ namespace Store.AspProject.Controllers
         [Route("LogOut")]
         public IActionResult LogOut()
         {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+           
 
             return Redirect("/Login");
         }

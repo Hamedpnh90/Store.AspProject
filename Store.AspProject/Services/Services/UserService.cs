@@ -1,4 +1,5 @@
-﻿using Store.AspProject.DataLayer.Context;
+﻿using Microsoft.AspNetCore.Identity;
+using Store.AspProject.DataLayer.Context;
 using Store.AspProject.DataLayer.Models.User;
 using Store.AspProject.DataLayer.UserViewModel;
 using Store.AspProject.Services.Interfces;
@@ -12,9 +13,11 @@ namespace Store.AspProject.Services.Services
         IRepository<User> UserRepository;
         AspStoreDbContext _context;
 
-        public UserService(AspStoreDbContext context)
+        UserManager<IdentityUser> _userManager;
+        public UserService(AspStoreDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         public bool DeleteUser(int id)
         {
@@ -24,10 +27,10 @@ namespace Store.AspProject.Services.Services
 
             user.IsDeleted = true;
 
-            
+
             return EditeUser(user);
 
-           
+
         }
 
         public bool EditeUser(User user)
@@ -49,14 +52,14 @@ namespace Store.AspProject.Services.Services
             return _context.users.FirstOrDefault(u => u.User_ID == id);
         }
 
-        public bool EditUserByAdmin(int id,EditUserViewModel editUser)
+        public bool EditUserByAdmin(int id, EditUserViewModel editUser)
         {
             var user = GetUserById(id);
 
-            if(user == null) return false;
+            if (user == null) return false;
 
-            user.IsAdmin = editUser.IsAdmin;    
-            user.UserMobile = editUser.UserMobile;  
+            user.IsAdmin = editUser.IsAdmin;
+            user.UserMobile = editUser.UserMobile;
             user.UserEmail = editUser.UserEmail;
 
             _context.users.Update(user);
@@ -65,37 +68,23 @@ namespace Store.AspProject.Services.Services
         }
 
         #region Register
-        public User RegisterUser(UserRegisterViewModel userRegister)
+        public async Task<IdentityResult> RegisterUser(UserRegisterViewModel userRegister)
         {
-            if (!IsUserExist(userRegister.UserEmail) && !IsUserNameExist(userRegister.UserName))
+
+
+           var res=await  _userManager.CreateAsync(new IdentityUser()
             {
+                UserName = userRegister.UserName,
+                Email = userRegister.UserEmail,
+                PhoneNumber = userRegister.mobile
+            }, userRegister.PassWord);
 
-                
-                User user = new User()
-                {
-                    UserName = userRegister.UserName,
-                    UserEmail = FixEmails.FixEmail(userRegister.UserEmail),
-                    CreatedDate = DateTime.Now,
-                    IsAdmin = false,
-                    IsDeleted = false,
-                    PassWord = PasswordHelper.EncodePasswordMd5(userRegister.PassWord) ,
-                    UserMobile = userRegister.mobile
-
-                };
-
-                _context.users.Add(user);
-                _context.SaveChanges();
-              return  user;
-            }
-
-          else
-            {
-                return null;
-            }
+            return res; 
         }
+
         public bool IsUserExist(string Email)
         {
-           var email=Email.ToLower();
+            var email = Email.ToLower();
             var res = _context.users.Any(u => u.UserEmail == FixEmails.FixEmail(email));
             return res;
         }
@@ -103,7 +92,7 @@ namespace Store.AspProject.Services.Services
         public bool IsUserNameExist(string UserName)
         {
             var username = UserName.ToLower();
-            var res= _context.users.Any(u => u.UserName.ToLower() == username);
+            var res = _context.users.Any(u => u.UserName.ToLower() == username);
 
             return res;
         }
@@ -114,14 +103,14 @@ namespace Store.AspProject.Services.Services
 
         public User Login(UserLoginViewModel userLogin)
         {
-            var HasHPass=PasswordHelper.EncodePasswordMd5(userLogin.PassWord);  
-            var UserEmail=FixEmails.FixEmail(userLogin.UserEmail);  
+            var HasHPass = PasswordHelper.EncodePasswordMd5(userLogin.PassWord);
+            var UserEmail = FixEmails.FixEmail(userLogin.UserEmail);
 
-             var res= IsPassWordMatched(HasHPass,UserEmail);  
+            var res = IsPassWordMatched(HasHPass, UserEmail);
 
-            if(res)
+            if (res)
             {
-               return FindUserByEmail(UserEmail);
+                return FindUserByEmail(UserEmail);
             }
 
             return null;
@@ -130,14 +119,14 @@ namespace Store.AspProject.Services.Services
 
         public User FindUserByEmail(string Email)
         {
-            return _context.users.FirstOrDefault(u=>u.UserEmail == Email);  
+            return _context.users.FirstOrDefault(u => u.UserEmail == Email);
         }
 
         public bool IsPassWordMatched(string Password, string email)
         {
-            var user=FindUserByEmail(email);
+            var user = FindUserByEmail(email);
 
-            if (user!=null)
+            if (user != null)
             {
                 if (user.PassWord == Password)
                 {
@@ -146,7 +135,7 @@ namespace Store.AspProject.Services.Services
 
                 else
                 {
-                    return false;   
+                    return false;
                 }
             }
 
@@ -155,7 +144,7 @@ namespace Store.AspProject.Services.Services
 
         }
 
-      
+
 
 
 

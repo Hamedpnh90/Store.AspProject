@@ -1,4 +1,5 @@
-﻿using Store.AspProject.DataLayer.Models.User;
+﻿using Microsoft.AspNetCore.Identity;
+using Store.AspProject.DataLayer.Models.User;
 using Store.AspProject.DataLayer.UserViewModel;
 
 namespace Store.AspProject.Services.Interfces
@@ -23,7 +24,7 @@ namespace Store.AspProject.Services.Interfces
 
         bool IsPassWordMatched(string Password,string email);
 
-        User RegisterUser(UserRegisterViewModel userRegister);
+        Task<IdentityResult> RegisterUser(UserRegisterViewModel userRegister);
 
         User Login(UserLoginViewModel userLogin);
   
