@@ -13,6 +13,7 @@ namespace Store.AspProject.Controllers
     {
         IUserService _userService;
 
+        
         public AccountController(IUserService userService)
         {
             _userService = userService;
@@ -63,29 +64,35 @@ namespace Store.AspProject.Controllers
 
 
 
-            var user = _userService.Login(login);
-            //login
-
-          
-
-                return Redirect("/");
-           
-           
+            var Res = _userService.Login(login);   
 
 
+            if(Res.Result.Succeeded)
+            {
+                return RedirectToAction("Index","Home");
+            }
+
+            return View(login);
 
 
-          
+
+
+
+
+
         }
         #endregion
 
 
         #region LogOut
 
-        [Route("LogOut")]
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult LogOut()
         {
            
+            _userService.LogOut();
 
             return Redirect("/Login");
         }

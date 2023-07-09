@@ -12,12 +12,13 @@ namespace Store.AspProject.Services.Services
     {
         IRepository<User> UserRepository;
         AspStoreDbContext _context;
-
+        SignInManager<IdentityUser> _SignInManager;
         UserManager<IdentityUser> _userManager;
-        public UserService(AspStoreDbContext context, UserManager<IdentityUser> userManager)
+        public UserService(AspStoreDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _context = context;
             _userManager = userManager;
+            _SignInManager = signInManager; 
         }
         public bool DeleteUser(int id)
         {
@@ -101,19 +102,29 @@ namespace Store.AspProject.Services.Services
 
         #region Login
 
-        public User Login(UserLoginViewModel userLogin)
+        public async Task<SignInResult> Login(UserLoginViewModel userLogin)
         {
-            var HasHPass = PasswordHelper.EncodePasswordMd5(userLogin.PassWord);
-            var UserEmail = FixEmails.FixEmail(userLogin.UserEmail);
+           var userByEmail=await _userManager.FindByNameAsync(userLogin.UserName); 
 
-            var res = IsPassWordMatched(HasHPass, UserEmail);
-
-            if (res)
+            if(userByEmail != null)
             {
-                return FindUserByEmail(UserEmail);
+                var result = await _SignInManager.PasswordSignInAsync(userLogin.UserName, userLogin.PassWord, userLogin.RememberMe, false);
+                if (result.Succeeded)
+                {
+                    return result;
+                }
+                else
+                {
+                    return result;   
+
+
+                }
             }
 
-            return null;
+            return SignInResult.Failed;
+
+
+
 
         }
 
@@ -142,6 +153,11 @@ namespace Store.AspProject.Services.Services
             return false;
 
 
+        }
+
+        public void LogOut()
+        {
+            _SignInManager.SignOutAsync();  
         }
 
 

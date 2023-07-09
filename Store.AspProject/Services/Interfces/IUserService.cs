@@ -26,7 +26,9 @@ namespace Store.AspProject.Services.Interfces
 
         Task<IdentityResult> RegisterUser(UserRegisterViewModel userRegister);
 
-        User Login(UserLoginViewModel userLogin);
+        Task<SignInResult> Login(UserLoginViewModel userLogin);
+
+        void LogOut();
   
 
         bool IsUserExist(string Email);
