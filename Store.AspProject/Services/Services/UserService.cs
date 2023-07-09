@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Store.AspProject.DataLayer.Context;
 using Store.AspProject.DataLayer.Models.User;
 using Store.AspProject.DataLayer.UserViewModel;
@@ -158,6 +159,11 @@ namespace Store.AspProject.Services.Services
         public void LogOut()
         {
             _SignInManager.SignOutAsync();  
+        }
+
+        public Task<bool> UserNameExisteJson(string UserName)
+        {
+             return _userManager.Users.AnyAsync(u=>u.UserName == UserName);
         }
 
 

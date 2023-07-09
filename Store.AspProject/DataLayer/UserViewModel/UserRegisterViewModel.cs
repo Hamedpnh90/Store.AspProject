@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Store.AspProject.DataLayer.UserViewModel
 {
@@ -6,6 +7,7 @@ namespace Store.AspProject.DataLayer.UserViewModel
     {
         [Display(Name = "نام کاربری")]
         [Required]
+        [Remote("IsAnyUserName ", "Account")]
         public string? UserName { get; set; }
         [Required]
         [Display(Name = " ایمیل")]

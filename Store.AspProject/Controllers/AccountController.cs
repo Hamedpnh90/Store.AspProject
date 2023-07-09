@@ -45,9 +45,23 @@ namespace Store.AspProject.Controllers
 
             return RedirectToAction("Login");
 
-            #endregion
+            
 
         }
+
+        public async Task<IActionResult> IsAnyUserName(string UserName)
+        {
+            var res =await _userService.UserNameExisteJson(UserName);
+
+            if(!res)
+            {
+                return Json(true);  
+            }
+
+            else return Json("نام کاربری از قبل ثبت شده است");    
+        }
+        #endregion
+
         #region Login
         [HttpGet("Login")]
         public IActionResult Login()

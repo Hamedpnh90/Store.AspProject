@@ -29,8 +29,8 @@ namespace Store.AspProject.Services.Interfces
         Task<SignInResult> Login(UserLoginViewModel userLogin);
 
         void LogOut();
-  
 
+        Task<bool> UserNameExisteJson(string UserName);
         bool IsUserExist(string Email);
 
         bool IsUserNameExist(string UserName);  
