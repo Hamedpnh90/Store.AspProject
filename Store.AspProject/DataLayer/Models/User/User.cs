@@ -6,20 +6,20 @@ namespace Store.AspProject.DataLayer.Models.User
     {
         [Key]
         public int User_ID { get; set; }
-        [Required]  
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]  
         [MaxLength(255)]
         public string UserName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(300)]
         public string? UserEmail { get; set; }
-        [Required]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(255)]
         public string? PassWord { get; set; }
-        [Required]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(50)]
         public string? UserMobile { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
  
         public bool IsAdmin { get; set; }
         public bool Rememberme { get; set; }
