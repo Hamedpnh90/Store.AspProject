@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Store.AspProject.DataLayer.Models.User;
 using Store.AspProject.DataLayer.UserViewModel;
 using Store.AspProject.Services.Interfces;
+using Store.AspProject.Utilites;
 using System.Security.Claims;
+using System.Text;
 using static Store.AspProject.Utilites.FixEmail;
 
 namespace Store.AspProject.Controllers
@@ -12,16 +17,21 @@ namespace Store.AspProject.Controllers
     public class AccountController : Controller
     {
         IUserService _userService;
-
-        
-        public AccountController(IUserService userService)
+        IViewRenderService _viewRenderService;
+        UserManager<IdentityUser> _userManager;
+        IEmailSenderService _emailSender;
+        public AccountController(IUserService userService, UserManager<IdentityUser> userManager, IViewRenderService viewRenderService, IEmailSenderService emailSender)
         {
             _userService = userService;
+            _userManager = userManager;
+            _viewRenderService = viewRenderService; 
+            _emailSender = emailSender; 
         }
         #region Register
         [HttpGet("Register")]
         public IActionResult Register()
         {
+            ViewBag.IsSent = false;
             return View();
         }
 
@@ -37,15 +47,43 @@ namespace Store.AspProject.Controllers
                 foreach (var item in Resualt.Errors)
                 {
                     ModelState.AddModelError(string.Empty, item.Description);
+                  
                     return View();  
                 }
             }
 
 
 
-            return RedirectToAction("Login");
+            var user = await _userManager.FindByNameAsync(userRegister.UserName);
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-            
+            token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+
+            string? CallBackUrl = Url.ActionLink("confirmEmail","Account", new {UserId=user.Id, token = token , },Request.Scheme); 
+         
+
+            string body = await _viewRenderService.RenderToStringAsync("_RegisterEmail", CallBackUrl); 
+
+           await  _emailSender.SendEmail(user.Email,"تایید ایمیل",body);
+            ViewBag.IsSent = true;
+
+            return View();
+        }
+
+
+        public async Task<IActionResult> confirmEmail(string UserId, string token)
+        {
+            if (UserId == null || token == null) return BadRequest();
+
+            var user=await _userManager.FindByIdAsync(UserId);
+            if(user == null) return NotFound();       
+
+             token= WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
+
+          var res=  await _userManager.ConfirmEmailAsync(user, token);
+
+            ViewBag.IsConfirmed=res.Succeeded? true:false;
+            return View();
 
         }
 

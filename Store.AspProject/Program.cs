@@ -1,10 +1,11 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Store.AspProject.DataLayer.Context;
-using Store.AspProject.DataLayer.Models.User;
+
 using Store.AspProject.Services.Interfces;
 using Store.AspProject.Services.Services;
+using Store.AspProject.Utilites;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,10 @@ builder.Services.AddDbContext<AspStoreDbContext>(options =>
 
 #region IOC
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IViewRenderService, ViewRenderService>();
+builder.Services.AddScoped<IEmailSenderService, EmailSenderService>();
+
+
 
 
 
