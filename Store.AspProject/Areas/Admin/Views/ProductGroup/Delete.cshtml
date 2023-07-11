@@ -1,0 +1,25 @@
+﻿@using Store.AspProject.DataLayer.Models.Product
+@model ProductGroup
+
+
+@{
+    ViewData["Title"] = "حذف گروه";
+}
+
+<div class="row">
+
+    <div class="col-lg-8 alert-danger">
+
+        <p>
+            ایا از حذف گروه @Model.GroupName مطمئن هستید ؟
+        </p>
+        <form asp-action="DeleteConfirm"
+        asp-route-id=@Model.GroupId>
+            <input type="hidden" asp-for="GroupId" />
+            <input type="submit" value="تایید حذف" class="btn btn-danger" /> |
+            <a asp-action="Index">بازگشت به لیست  </a>
+        </form>
+        
+    </div>
+
+</div>

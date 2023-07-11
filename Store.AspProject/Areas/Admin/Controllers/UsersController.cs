@@ -6,12 +6,12 @@ using Store.AspProject.Services.Interfces;
 namespace Store.AspProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class Users : Controller
+    public class UsersController : Controller
     {
        
         IUserService _UserService;
 
-        public Users(IUserService UserService)
+        public UsersController(IUserService UserService)
         {
             _UserService = UserService; 
         }
