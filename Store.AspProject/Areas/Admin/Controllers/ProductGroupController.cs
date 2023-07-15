@@ -20,7 +20,7 @@ namespace Store.AspProject.Areas.Admin.Controllers
 
             return View(_productService.GetAll());
         }
-        [HttpGet("Admin/ProductGroup")]
+      
         public IActionResult Create()
         {
 
@@ -31,9 +31,9 @@ namespace Store.AspProject.Areas.Admin.Controllers
 
         public IActionResult Create(ProductGroup productGroup)
         {
-            _productService.AddProduct(productGroup);
+            _productService.AddProductGroup(productGroup);
 
-            return Redirect("index");
+            return RedirectToAction("Index");
         }
 
 

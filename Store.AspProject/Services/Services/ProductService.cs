@@ -1,6 +1,9 @@
-﻿using Store.AspProject.DataLayer.Context;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Store.AspProject.DataLayer.Context;
 using Store.AspProject.DataLayer.Models.Product;
 using Store.AspProject.Services.Interfces;
+using Store.AspProject.Utilites;
 
 namespace Store.AspProject.Services.Services
 {
@@ -13,11 +16,18 @@ namespace Store.AspProject.Services.Services
             _context = context;
         }
 
-        public int AddProduct(ProductGroup productGroup)
+   
+
+        public int AddProductGroup(ProductGroup productGroup)
         {
             _context.productGroups.Add(productGroup);   
             _context.SaveChanges();
             return productGroup.GroupId;
+        }
+
+        public bool DeletProduct(int Id)
+        {
+            throw new NotImplementedException();
         }
 
         public bool DeletProductGroup(int Id)
@@ -29,6 +39,10 @@ namespace Store.AspProject.Services.Services
             return true;
         }
 
+      
+
+
+
         public bool EditProductGroup(ProductGroup productGroup)
         {
             _context.Update(productGroup);
@@ -36,14 +50,58 @@ namespace Store.AspProject.Services.Services
             return true;
         }
 
-        public List<ProductGroup> GetAll()
-        {
-          return  _context.productGroups.ToList();
-        }
+       
 
         public ProductGroup GetProductGroupById(int id)
         {
             return _context.productGroups.Find(id);    
         }
+
+        #region Product
+
+        public int AddProduct(Product product,IFormFile Img)
+        {
+            //uploadimg
+            string ImageName = "Default.jpg";
+            if(Img!=null)
+            {
+                ImageName=CodeGenrator.GenratinUniqCode()+Path.GetExtension(Img.FileName);
+                string ImagePath =ImagesfilePath.ProductImageServer+ImageName;
+                using(var stream=new FileStream(ImagePath,FileMode.Create))
+                {
+                    Img.CopyTo(stream);
+                }
+            }
+
+            product.ImageName = ImageName;  
+            product.CreateDate = DateTime.Now;
+            _context.Add(product);
+            _context.SaveChanges();
+
+            return product.ProductId;
+        }
+        public List<ProductGroup> GetAll()
+        {
+            return _context.productGroups.ToList(); 
+        }
+
+        public List<Product> GetAllProduct()
+        {
+            return _context.products.Include(p=>p.ProductGroup).ToList();
+        }
+
+        public Product GetProductById(int id)
+        {
+            return _context.products.Find(id);
+        }
+
+        public bool EditProduct(Product product)
+        {
+            _context.products.Update(product);
+            _context.SaveChanges();
+            return true;
+        }
+
+        #endregion
     }
 }

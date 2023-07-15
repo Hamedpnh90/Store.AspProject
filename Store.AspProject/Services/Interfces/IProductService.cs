@@ -6,17 +6,35 @@ namespace Store.AspProject.Services.Interfces
     {
 
 
-        int AddProduct(ProductGroup productGroup); 
+        #region ProductGroup
+        int AddProductGroup(ProductGroup productGroup);
 
         List<ProductGroup> GetAll();
 
-        ProductGroup GetProductGroupById(int id);    
+        ProductGroup GetProductGroupById(int id);
 
 
-        bool DeletProductGroup(int  Id);
+        bool DeletProductGroup(int Id);
 
 
         bool EditProductGroup(ProductGroup productGroup);
+        #endregion
+
+
+        #region Product
+
+        int AddProduct(Product product, IFormFile Img);
+
+        List<Product> GetAllProduct();
+
+        Product GetProductById(int id);
+
+
+        bool DeletProduct(int Id);
+
+
+        bool EditProduct(Product product);
+        #endregion
 
 
 

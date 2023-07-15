@@ -1,0 +1,42 @@
+﻿
+
+@using Store.AspProject.DataLayer.Models.Product
+@model IEnumerable<Product>
+
+
+<a href="/admin/Product/Create" class="btn btn-success">افزودن</a>
+
+
+        <table class="table">
+
+            <thead>
+
+                <tr>
+
+                    <th>عنوان</th>
+                    <th>سر عنوان</th>
+                    <th> قیمت</th>
+             
+                    <th> گروه</th>
+                    <th>دستورات</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ProductTitle</td>
+                        <td>@item.ProductHeadTitle</td>
+                        <td>@item.Price</td>
+                        <td>@item.ProductGroup.GroupName</td>
+
+                        <td>
+                            <a href="/admin/Product/Delete/@item.GroupId">حذف</a>
+                            <a href="/admin/Product/Edit/@item.GroupId">ویرایش</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+

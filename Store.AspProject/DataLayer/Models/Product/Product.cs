@@ -13,7 +13,7 @@ namespace Store.AspProject.DataLayer.Models.Product
         public int GroupId { get; set; }
 
         [ForeignKey("GroupId")]
-        public ProductGroup ProductGroup { get; set; }
+        public ProductGroup? ProductGroup { get; set; }
 
 
         [Display(Name = "عنوان")]
@@ -36,9 +36,9 @@ namespace Store.AspProject.DataLayer.Models.Product
 
         [Display(Name = "تصویر")]
         [MaxLength(50)]
-        public string ImageName { get; set; }
+        public string? ImageName { get; set; }
         [Display(Name = "تاریخ")]
-        public DateTime CreateDate { get; set; } = DateTime.Now;
+        public DateTime? CreateDate { get; set; } = DateTime.Now;
         [Display(Name = "تگ")]
         [MaxLength(400)]
         public string Tags { get; set; }

@@ -33,6 +33,7 @@ builder.Services.AddDbContext<AspStoreDbContext>(options =>
 #region IOC
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 
 
