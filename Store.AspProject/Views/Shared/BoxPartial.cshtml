@@ -1,58 +1,24 @@
-﻿
+﻿@using Store.AspProject.DataLayer.Models.Product
+@using Store.AspProject.Utilites
 
+@model Product
 
 
 
 
 <div class="card border-primary m-1 col-3 p-2" style="max-width: 18rem;">
 
-    <img src="~/Img/1.jpg" class="img-thumbnail" />
-    
+    <img src="@ImagesfilePath.ProductImage/@Model.ImageName" class="img-thumbnail" />
 
-        <div class="p-1">
-            <h4 class="card-title align-content-around">تیشرت زرد</h4>
-            @* //  <p class="card-text">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم  </p>*@
-        
 
-    </div>
-    <div class="p-2">
-        <button class="btn btn-outline-primary ">
-            افزودن به سبد خرید
-        </button>
-    </div>
+    <div class="p-1">
+        <h4 class="card-title align-content-around">@Model.ProductTitle</h4>
+         <p class="card-text">@Model.ProductDescription </p>
 
-</div>
-<div class="card border-primary m-1 col-3 p-2" style="max-width: 18rem;">
-
-    <img src="~/Img/1.jpg" class="img-thumbnail" />
-    
-
-        <div class="p-1">
-            <h4 class="card-title align-content-around">تیشرت زرد</h4>
-            @* //  <p class="card-text">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم  </p>*@
-        
 
     </div>
     <div class="p-2">
-        <button class="btn btn-outline-primary ">
-            افزودن به سبد خرید
-        </button>
-    </div>
-
-</div>
-<div class="card border-primary m-1 col-3 p-2" style="max-width: 18rem;">
-
-    <img src="~/Img/1.jpg" class="img-thumbnail" />
-    
-
-        <div class="p-1">
-            <h4 class="card-title align-content-around">تیشرت زرد</h4>
-            @* //  <p class="card-text">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم  </p>*@
-        
-
-    </div>
-    <div class="p-2">
-        <button class="btn btn-outline-primary ">
+        <button class="btn btn-outline-primary">
             افزودن به سبد خرید
         </button>
     </div>

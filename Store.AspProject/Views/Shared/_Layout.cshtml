@@ -1,5 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Store.AspProject.Services.Interfces
+<!DOCTYPE html>
 <html lang="en">
+    @inject IProductService  ProductService;
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -109,8 +111,14 @@
 
 
                         <div class="row">
-
-                            <partial name="BoxPartial" />
+                            @{
+                                var res = ProductService.GetAllProduct();
+                            }
+                         @foreach (var item in res)
+                         {
+                             <partial name="BoxPartial" model="@item" />
+                         }
+                            
 
 
                         </div>
