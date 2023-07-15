@@ -18,6 +18,8 @@ namespace Store.AspProject.Services.Interfces
 
 
         bool EditProductGroup(ProductGroup productGroup);
+
+        List<ShowproductGroupViewModel> GetProductGropuViewModel();
         #endregion
 
 

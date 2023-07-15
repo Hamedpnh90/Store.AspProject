@@ -57,6 +57,17 @@ namespace Store.AspProject.Services.Services
             return _context.productGroups.Find(id);    
         }
 
+        public List<ShowproductGroupViewModel> GetProductGropuViewModel()
+        {
+           var res=  _context.productGroups.Select(g => new ShowproductGroupViewModel()
+            {
+               GroupId = g.GroupId,
+               count = g.Products.Count,
+               GroupName=g.GroupName
+            }).ToList(); 
+            return res;
+        }
+
         #region Product
 
         public int AddProduct(Product product,IFormFile Img)
@@ -102,6 +113,7 @@ namespace Store.AspProject.Services.Services
             return true;
         }
 
+        
         #endregion
     }
 }
