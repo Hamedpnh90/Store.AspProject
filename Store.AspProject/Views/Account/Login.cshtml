@@ -16,20 +16,29 @@
     </div>
 
 
+
     <div class="row justify-content-center">
         <div class="col-4" style="border: 2px solid #f184b5 ;padding:30px 20px; ">
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    <div class=" alert alert-danger ">
+                        <p>این بخش برای شما قابل دسترس نمیباشد</p>
+                    </div>
+                }
+            }
             <form asp-controller="Account" asp-action="Login" method="post">
-              
+
                 <div class="form-group">
                     <label for="exampleInputEmail1">ایمیل</label>
-                    <input asp-for="UserEmail" class="form-control"  placeholder="ایمیل خود را وارد کنید">
+                    <input asp-for="UserEmail" class="form-control" placeholder="ایمیل خود را وارد کنید">
                     <small id="emailHelp" class="form-text text-muted"></small>
                 </div>
                 <div class="form-group">
                     <label asp-for="PassWord">رمز عبور</label>
-                    <input asp-for="PassWord" class="form-control"  placeholder="رمز خود را وارد کنید">
+                    <input asp-for="PassWord" class="form-control" placeholder="رمز خود را وارد کنید">
                 </div>
-                
+
                 <div class="form-group form-check">
                     <input asp-for="RememberMe" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">مرا به خاطر بسپار</label>

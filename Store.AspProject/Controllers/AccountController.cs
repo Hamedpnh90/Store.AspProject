@@ -33,12 +33,13 @@ namespace Store.AspProject.Controllers
 
             if (user != null)
             {
+                ViewBag.UserExist = true;
                 ViewBag.User = user;
                 return View("RegisterSucceed", user);
             }
             else
             {
-                ViewBag.User = user;
+                ViewBag.UserExist = false;
                 return View(userRegister);
             }
 
@@ -71,7 +72,7 @@ namespace Store.AspProject.Controllers
                 var claims = new List<Claim>()
                     {
                         new Claim(ClaimTypes.NameIdentifier,user.User_ID.ToString()),
-                        new Claim(ClaimTypes.Name,user.UserName)
+                        new Claim("IsAdmin",user.IsAdmin.ToString())
                     };
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 

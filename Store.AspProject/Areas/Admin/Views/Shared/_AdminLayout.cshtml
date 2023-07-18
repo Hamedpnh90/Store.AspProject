@@ -1,4 +1,19 @@
 ﻿<!DOCTYPE html>
+
+@{
+
+
+    if(!User.Identity.IsAuthenticated )
+    {
+        Context.Response.Redirect("/Login");
+    }
+
+    bool isAdmin = bool.Parse(User.FindFirst("IsAdmin").Value);
+    if(!isAdmin)
+    {
+         Context.Response.Redirect("/Login");
+    }
+}
 <html>
 
 <head>
@@ -26,7 +41,7 @@
 </head>
 
 <body>
-   
+  
     <div id="wrapper">
 
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">

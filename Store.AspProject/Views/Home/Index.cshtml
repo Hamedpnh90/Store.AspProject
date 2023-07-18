@@ -1,7 +1,8 @@
-﻿@{
+﻿@using Store.AspProject.Services.Interfces
+@{
     ViewData["Title"] = "Home Page";
 }
-
+ @inject IProductService  ProductService;
 
 <header class="headerlanda m-0">
     <div class="  d-flex justify-content-center p-2 " @*style="border:1px solid black"*@>
@@ -26,7 +27,37 @@
      </div>
      </div>
 </header>
+<div class="container">
+                <div class="row">
+                    @*Aside*@
+                   
 
+
+                    @await Component.InvokeAsync("ShowGroups")
+
+
+                    @*EndAside*@
+                    @*Main*@
+                    <div class="main col-9">
+
+
+                        <div class="row">
+                            @{
+                                var res = ProductService.GetAllProduct();
+                            }
+                         @foreach (var item in res)
+                         {
+                             <partial name="BoxPartial" model="@item" />
+                         }
+                            
+
+
+                        </div>
+
+                    </div>
+                    @*EndMain*@
+                </div>
+            </div>
        
 
 
