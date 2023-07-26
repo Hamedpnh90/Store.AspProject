@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Store.AspProject.DataLayer.Models.User
+namespace Store.AspProject.DataLayer.Models.user
 {
-    public class User: BaseEntity
+    public class user: BaseEntity
     {
         [Key]
         public int User_ID { get; set; }
@@ -25,6 +25,7 @@ namespace Store.AspProject.DataLayer.Models.User
         public bool Rememberme { get; set; }
 
 
+        public IList<Order.Order> orders { get; set; }
 
     }
 }

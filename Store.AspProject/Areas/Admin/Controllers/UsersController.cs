@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Store.AspProject.DataLayer.Models.User;
+using Store.AspProject.DataLayer.Models.user;
 using Store.AspProject.DataLayer.UserViewModel;
 using Store.AspProject.Services.Interfces;
 
@@ -42,7 +42,7 @@ namespace Store.AspProject.Areas.Admin.Controllers
         }
 
         [HttpPost("Admin/Delete/")]
-        public IActionResult DeletUser(User user)
+        public IActionResult DeletUser(user user)
         {
             _UserService.DeleteUser(user.User_ID);
 

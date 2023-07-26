@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Store.AspProject.DataLayer.Models.User;
+
 using Store.AspProject.DataLayer.UserViewModel;
 using Store.AspProject.Services.Interfces;
 using System.Security.Claims;
@@ -29,7 +29,7 @@ namespace Store.AspProject.Controllers
         {
             if (!ModelState.IsValid) return View();
 
-            User user = _userService.RegisterUser(userRegister);
+            var user = _userService.RegisterUser(userRegister);
 
             if (user != null)
             {

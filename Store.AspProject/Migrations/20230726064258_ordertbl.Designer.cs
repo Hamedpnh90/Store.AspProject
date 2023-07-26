@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Store.AspProject.DataLayer.Context;
 
@@ -11,9 +12,10 @@ using Store.AspProject.DataLayer.Context;
 namespace Store.AspProject.Migrations
 {
     [DbContext(typeof(AspStoreDbContext))]
-    partial class AspStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230726064258_ordertbl")]
+    partial class ordertbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,9 +58,6 @@ namespace Store.AspProject.Migrations
 
                     b.Property<int>("Count")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");

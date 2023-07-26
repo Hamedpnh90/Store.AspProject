@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Store.AspProject.DataLayer.Models.Order;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Store.AspProject.DataLayer.Models.Product
@@ -42,5 +43,9 @@ namespace Store.AspProject.DataLayer.Models.Product
         [Display(Name = "تگ")]
         [MaxLength(400)]
         public string Tags { get; set; }
+
+
+
+        public IList<OrderDetails> orderDetails { get; set; }
     }
 }

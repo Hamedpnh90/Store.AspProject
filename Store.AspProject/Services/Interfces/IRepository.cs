@@ -2,7 +2,7 @@
 
 using Store.AspProject.DataLayer.Context;
 using Store.AspProject.DataLayer.Models;
-using Store.AspProject.DataLayer.Models.User;
+
 
 namespace Store.AspProject.Services.Interfces
 {

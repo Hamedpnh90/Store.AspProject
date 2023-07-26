@@ -1,5 +1,5 @@
 ﻿using Store.AspProject.DataLayer.Context;
-using Store.AspProject.DataLayer.Models.User;
+using Store.AspProject.DataLayer.Models.user;
 using Store.AspProject.DataLayer.UserViewModel;
 using Store.AspProject.Services.Interfces;
 using Store.AspProject.Utilites;
@@ -9,7 +9,7 @@ namespace Store.AspProject.Services.Services
 {
     public class UserService : IUserService
     {
-        IRepository<User> UserRepository;
+        IRepository<user> UserRepository;
         AspStoreDbContext _context;
 
         public UserService(AspStoreDbContext context)
@@ -18,7 +18,7 @@ namespace Store.AspProject.Services.Services
         }
         public bool DeleteUser(int id)
         {
-            User user = _context.users.Find(id);
+            user user = _context.users.Find(id);
 
             if (user == null) return false;
 
@@ -30,7 +30,7 @@ namespace Store.AspProject.Services.Services
            
         }
 
-        public bool EditeUser(User user)
+        public bool EditeUser(user user)
         {
             if (user == null) return false;
 
@@ -39,12 +39,12 @@ namespace Store.AspProject.Services.Services
             return true;
         }
 
-        public IList<User> GetAllUsers()
+        public IList<user> GetAllUsers()
         {
             return _context.users.ToList();
         }
 
-        public User GetUserById(int id)
+        public user GetUserById(int id)
         {
             return _context.users.FirstOrDefault(u => u.User_ID == id);
         }
@@ -65,13 +65,13 @@ namespace Store.AspProject.Services.Services
         }
 
         #region Register
-        public User RegisterUser(UserRegisterViewModel userRegister)
+        public user RegisterUser(UserRegisterViewModel userRegister)
         {
             if (!IsUserExist(userRegister.UserEmail) && !IsUserNameExist(userRegister.UserName))
             {
 
                 
-                User user = new User()
+                user user = new user()
                 {
                     UserName = userRegister.UserName,
                     UserEmail = FixEmails.FixEmail(userRegister.UserEmail),
@@ -112,7 +112,7 @@ namespace Store.AspProject.Services.Services
 
         #region Login
 
-        public User Login(UserLoginViewModel userLogin)
+        public user Login(UserLoginViewModel userLogin)
         {
             var HasHPass=PasswordHelper.EncodePasswordMd5(userLogin.PassWord);  
             var UserEmail=FixEmails.FixEmail(userLogin.UserEmail);  
@@ -128,7 +128,7 @@ namespace Store.AspProject.Services.Services
 
         }
 
-        public User FindUserByEmail(string Email)
+        public user FindUserByEmail(string Email)
         {
             return _context.users.FirstOrDefault(u=>u.UserEmail == Email);  
         }

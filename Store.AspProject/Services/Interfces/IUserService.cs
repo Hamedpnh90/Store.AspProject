@@ -1,4 +1,5 @@
-﻿using Store.AspProject.DataLayer.Models.User;
+﻿using Store.AspProject.DataLayer.Models.user;
+
 using Store.AspProject.DataLayer.UserViewModel;
 
 namespace Store.AspProject.Services.Interfces
@@ -6,26 +7,26 @@ namespace Store.AspProject.Services.Interfces
     public interface IUserService
     {
 
-        IList<User> GetAllUsers();
+        IList<user> GetAllUsers();
 
-        User GetUserById(int id);
+        user GetUserById(int id);
 
 
         bool EditUserByAdmin(int id,EditUserViewModel editUser);
 
 
-        bool EditeUser(User user);
+        bool EditeUser(user user);
 
         bool DeleteUser(int id);
 
 
-        User FindUserByEmail(string Email);
+        user FindUserByEmail(string Email);
 
         bool IsPassWordMatched(string Password,string email);
 
-        User RegisterUser(UserRegisterViewModel userRegister);
+        user RegisterUser(UserRegisterViewModel userRegister);
 
-        User Login(UserLoginViewModel userLogin);
+        user Login(UserLoginViewModel userLogin);
   
 
         bool IsUserExist(string Email);

@@ -1,0 +1,68 @@
+﻿@using Store.AspProject.DataLayer.Models.Order
+@model IEnumerable<Order>
+
+
+
+
+<section class="content">
+
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="box">
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover no-wrap myTable">
+                                <thead>
+                                    <tr class="bg-secondary">
+                                        <th scope="col"> شماره فاکتور</th>
+
+                                        <th scope="col"> جمع فاکتور</th>
+                                        <th scope="col">وضعیت</th>
+                                        <th scope="col">دستورات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @if (Model != null && Model.Any())
+                                    {
+                                        @foreach (var item in @Model)
+                                        {
+                                            <tr>
+                                                <th>@item.OrderId</th>
+
+                                                <td>@item.orderSum</td>
+                                                <td>
+                                                    <p>
+                                                        @(item.IsFinally?"پرداخت شده":"پرداخت نشده")
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-warning">ویرایش</a>
+                                                    <a class="btn btn-danger">حذف</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    else
+    {
+        <div class="alert alert-danger">
+            <p>
+                هیچ فاکتوری برای نمایش وجود ندارد
+            </p>
+        </div>
+
+    }
+
+</section>
