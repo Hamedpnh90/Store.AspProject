@@ -32,7 +32,7 @@
                                         @foreach (var item in @Model)
                                         {
                                             <tr>
-                                                <th> <img src="@($"{ImagesfilePath.ProductImage}{item.product.ImageName}")"  class="img-thumbnail" style="max-width:120px" /></th>
+                                                <th> <img src="@($"{ImagesfilePath.ProductImage}{item.product.ImageName}")"  class="img-thumbnail" style="max-width:100px;height:100px" /></th>
                                                 <th>@item.product.ProductTitle</th>
 
                                                 <td>@item.Count</td>
@@ -43,7 +43,7 @@
                                                 </td>
                                                 <td>
                                                    
-                                                    <a class="btn btn-danger">حذف</a>
+                                                    <a class="btn btn-danger" href="/Product/DeleteOrderDetail/@item.DetailsId">حذف</a>
                                                 </td>
                                             </tr>
                                         }

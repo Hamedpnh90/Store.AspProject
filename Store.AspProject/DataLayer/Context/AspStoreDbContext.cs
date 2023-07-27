@@ -17,6 +17,7 @@ namespace Store.AspProject.DataLayer.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<user>().HasQueryFilter(x => !x.IsDeleted);   
+            modelBuilder.Entity<Order>().HasQueryFilter(x => !x.IsDeleted);   
 
             base.OnModelCreating(modelBuilder);
         }

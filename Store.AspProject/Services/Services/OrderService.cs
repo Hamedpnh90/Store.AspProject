@@ -81,11 +81,24 @@ namespace Store.AspProject.Services.Services
 
         }
 
-        public bool DeleteOrder(int OrderId)
+        public bool CheckOrderHasvalue(int userId)
         {
-            var order = _context.Order.Find(OrderId);
-            if (order == null) return false;
-            order.IsFinally = true;
+            var order = _context.Order.Include(o=>o.orderDetails).FirstOrDefault(o => o.userId == userId && !o.IsFinally).orderDetails;
+            if(order==null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool DeleteOrder(int userID)
+        {
+            var order=_context.Order.FirstOrDefault(o=>o.userId == userID && !o.IsFinally);
+            
+            if(order==null) return false;    
+
+            order.IsDeleted = true;
             _context.Order.Update(order);
             _context.SaveChanges();
             return true;

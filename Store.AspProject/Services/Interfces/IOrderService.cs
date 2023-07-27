@@ -21,12 +21,18 @@ namespace Store.AspProject.Services.Interfces
         int UpdateOrdersum(int OrderId);
         OrderDetails OrderDetailsExist(int orderId,int productId);
 
-        bool DeleteOrder(int OrderId);
+        bool DeleteOrder(int userID);
 
         bool DeleteOrderDetail(int orderDetail);
 
 
         List<OrderDetails> ShowOrderDetail(int OrderId);
+
+
+        bool CheckOrderHasvalue(int userId);
+
+
+         
 
         #endregion
 

@@ -47,5 +47,20 @@ namespace Store.AspProject.Controllers
             return View(orderDetail);
         }
 
+        [Route("/Product/DeleteOrderDetail/{OrderDetailId}")]
+        public IActionResult DeleteOrderDetail(int OrderDetailId)
+        {
+           var res= _orderService.DeleteOrderDetail(OrderDetailId);
+            int userid = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            if (_orderService.CheckOrderHasvalue(userid))
+            {
+                return View();
+            }
+
+            _orderService.DeleteOrder(userid);
+
+            return RedirectToAction("index");   
+        }
+
     }
 }

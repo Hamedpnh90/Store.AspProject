@@ -46,6 +46,6 @@ namespace Store.AspProject.DataLayer.Models.Product
 
 
 
-        public IList<OrderDetails> orderDetails { get; set; }
+        public IList<OrderDetails>? orderDetails { get; set; }
     }
 }
