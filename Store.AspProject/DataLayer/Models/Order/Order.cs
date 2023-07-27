@@ -16,8 +16,11 @@ namespace Store.AspProject.DataLayer.Models.Order
 
         public bool IsFinally { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
+
         [ForeignKey("userId")]
-        public user.user user { get; set; }
+        public user.user  user { get; set; }
 
         public IList<OrderDetails> orderDetails { get; set; }
     }

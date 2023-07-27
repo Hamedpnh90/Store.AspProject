@@ -9,7 +9,7 @@ namespace Store.AspProject.Services.Services
 {
     public class UserService : IUserService
     {
-        IRepository<user> UserRepository;
+       
         AspStoreDbContext _context;
 
         public UserService(AspStoreDbContext context)
@@ -73,7 +73,7 @@ namespace Store.AspProject.Services.Services
                 
                 user user = new user()
                 {
-                    UserName = userRegister.UserName,
+                    user_name = userRegister.UserName,
                     UserEmail = FixEmails.FixEmail(userRegister.UserEmail),
                     CreatedDate = DateTime.Now,
                     IsAdmin = false,
@@ -103,7 +103,7 @@ namespace Store.AspProject.Services.Services
         public bool IsUserNameExist(string UserName)
         {
             var username = UserName.ToLower();
-            var res= _context.users.Any(u => u.UserName.ToLower() == username);
+            var res= _context.users.Any(u => u.user_name.ToLower() == username);
 
             return res;
         }

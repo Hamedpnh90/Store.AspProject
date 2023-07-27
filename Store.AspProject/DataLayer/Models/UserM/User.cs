@@ -8,7 +8,7 @@ namespace Store.AspProject.DataLayer.Models.user
         public int User_ID { get; set; }
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]  
         [MaxLength(255)]
-        public string UserName { get; set; }
+        public string? user_name { get; set; }
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(300)]
         public string? UserEmail { get; set; }

@@ -1,0 +1,46 @@
+﻿@using Store.AspProject.DataLayer.Models.Product
+@using Store.AspProject.Utilites
+@model Product
+
+
+
+
+
+<div class="contanier ">
+
+
+      <div class="row">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">خانه</a></li> /
+                <li class="breadcrumb-item active" aria-current="page">@Model.ProductTitle</li>
+            </ol>
+        </nav>
+    </div>
+
+
+
+<div class="row justify-content-center ">
+
+<div class="col-6 border-3">
+        <img src="@($"{ImagesfilePath.ProductImage}{Model.ImageName}")"  class="img-thumbnail" />
+    <div class="p-1 ">
+        <h4 class="card-title align-content-around">@Model.ProductTitle</h4>
+        <p class="card-text">@Html.Raw(@Model.ProductDescription)  </p>
+
+
+    </div>
+    <div class="row justify-content-center ">
+        <div class="p-0 m-2 ">
+            <a class="btn btn-outline-success btn btn-xl" href="/Product/shopingCart/@Model.ProductId">
+                خرید
+            </a>
+        </div>
+
+    </div>
+</div>
+
+
+
+</div>
+</div>

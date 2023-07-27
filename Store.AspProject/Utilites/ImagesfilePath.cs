@@ -3,7 +3,7 @@
     public static class ImagesfilePath
     {
 
-        private static string ImageBase="/Img/Product" ;
+        private static string ImageBase="/Img/Product/" ;
         private static string ImageBaseServer=$"wwwroot/{ImageBase}" ;
 
         private static string DefualtImage = $"{ImageBaseServer}/Product/Defualt/Defualt.jpg";

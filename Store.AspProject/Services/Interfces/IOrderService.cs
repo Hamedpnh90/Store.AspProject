@@ -7,12 +7,12 @@ namespace Store.AspProject.Services.Interfces
     public interface IOrderService
     {
         #region Orders
-        List<Order> GetAllOrder(string Email);
+        List<Order> GetAllOrder(int UserId);
 
 
-        int AddOrder(string Email,int ProductId);
+        int AddOrder(int UserId, int ProductId);
 
-        user FindUserByEnail(string Enail);
+        user FindUserByID(int UserId);
 
         Product  FindProductById(int ProductId);
 
@@ -24,6 +24,9 @@ namespace Store.AspProject.Services.Interfces
         bool DeleteOrder(int OrderId);
 
         bool DeleteOrderDetail(int orderDetail);
+
+
+        List<OrderDetails> ShowOrderDetail(int OrderId);
 
         #endregion
 

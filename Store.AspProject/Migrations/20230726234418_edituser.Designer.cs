@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Store.AspProject.DataLayer.Context;
 
@@ -11,9 +12,10 @@ using Store.AspProject.DataLayer.Context;
 namespace Store.AspProject.Migrations
 {
     [DbContext(typeof(AspStoreDbContext))]
-    partial class AspStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230726234418_edituser")]
+    partial class edituser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +31,6 @@ namespace Store.AspProject.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsFinally")
                         .HasColumnType("bit");
