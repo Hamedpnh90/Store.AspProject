@@ -10,6 +10,7 @@ namespace Store.AspProject.Services.Interfces
         int AddProductGroup(ProductGroup productGroup);
 
         List<ProductGroup> GetAll();
+        List<Product> GetProductBySearch(string Title);
 
         ProductGroup GetProductGroupById(int id);
 

@@ -1,0 +1,78 @@
+﻿
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/"> فروشگاه </a></li>
+          
+        </ul>
+    </nav>
+</div>
+
+    
+
+@if(ViewBag.IsSuccess==true)
+{
+    <div class="alert alert-info">
+
+        <p>پرداخت شما با موفقیت انجام شد </p>
+        <p>شمار پیگیری شما :@ViewBag.code</p>
+
+    </div>
+}
+
+@if(ViewBag.Text!=null)
+{
+     <div class="alert alert-info">
+
+        <p>تراکنش با شکست مواجه شد </p>
+        
+
+    </div>
+    
+}
+else
+{
+    @if(ViewBag.Error!=null)
+    {
+         int ErrorCode = @ViewBag.Error;
+          <div class="alert alert-danger">
+
+        <p>پرداخت شما با شکست مواجه شد </p>
+        <p>شمار پیگیری شما :@ErrorCode</p>
+    
+             @if (@ErrorCode!=null)
+                                                {
+                @switch (ErrorCode)
+                {
+                    case -51:
+                        {
+                            <div class="alert alert-warning">
+                                <p class="text-muted"> پرداخت توسط کاربر لغو گردید </p>
+                            </div>
+                            break;
+                        }
+                    case -54:
+                        {
+                            <div class="alert alert-success ">
+                                <p class="text-muted">   اتوریتی نامعتبر </p>
+                            </div>
+                            break;
+                        }
+                   
+                    case 101:
+                        {
+                            <div class="alert alert-warning  ">
+                                <p class="text-muted">کد تخفیفی یافت نشد </p>
+                            </div>
+                            break;
+                        }
+                    
+                }
+
+            }
+    
+    </div>
+    }
+   
+}

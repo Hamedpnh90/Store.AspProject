@@ -84,7 +84,7 @@ namespace Store.AspProject.Services.Services
         public bool CheckOrderHasvalue(int userId)
         {
             var order = _context.Order.Include(o=>o.orderDetails).FirstOrDefault(o => o.userId == userId && !o.IsFinally).orderDetails;
-            if(order==null)
+            if(order.Count==0)
             {
                 return true;
             }

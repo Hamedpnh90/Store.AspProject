@@ -1,0 +1,57 @@
+﻿@using Store.AspProject.DataLayer.Models.Product
+@model IEnumerable<Product>
+
+
+
+<header class="headerlanda m-0">
+    <div class="  d-flex justify-content-center p-2 " @*style="border:1px solid black"*@>
+
+        <div class="row p-2">
+            <div class="col-md-12  text-center">
+                <div class="display-2">
+                    <div class="display-tc animate-box fadeIn animated-fast" data-animate-effect="fadeIn">
+                        <p>
+                            به فروشگاه خوش امدید
+                        </p>
+
+                        <div class="row">
+                            <form class="d-flex " asp-controller="home" asp-action="Search">
+                                <input class="form-control me-sm-2" type="search" name="Title" placeholder="جستوجو">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">جستوجو</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        @*Aside*@
+
+
+
+        @await Component.InvokeAsync("ShowGroups")
+
+
+        @*EndAside*@
+        @*Main*@
+        <div class="main col-9">
+
+
+            <div class="row">
+               
+                @foreach (var item in Model)
+                {
+                    <partial name="BoxPartial" model="@item" />
+                }
+
+
+
+            </div>
+
+        </div>
+        @*EndMain*@
+    </div>
+</div>

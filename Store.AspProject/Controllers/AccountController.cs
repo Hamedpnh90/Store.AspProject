@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Store.AspProject.DataLayer.UserViewModel;
 using Store.AspProject.Services.Interfces;
 using System.Security.Claims;
+using ZarinpalRestApi.Models;
+using ZarinpalRestApi.ZarinPack;
 using static Store.AspProject.Utilites.FixEmail;
 
 namespace Store.AspProject.Controllers
@@ -12,10 +14,11 @@ namespace Store.AspProject.Controllers
     public class AccountController : Controller
     {
         IUserService _userService;
-
-        public AccountController(IUserService userService)
+        IOrderService _orderService;
+        public AccountController(IUserService userService, IOrderService orderService)
         {
             _userService = userService;
+            _orderService = orderService;
         }
         #region Register
         [HttpGet("Register")]
@@ -111,6 +114,59 @@ namespace Store.AspProject.Controllers
 
             return Redirect("/Login");
         }
+        #endregion
+
+
+        #region OnlinePayment
+        [Route("OnlinePayment/{id}")]
+        public IActionResult OnlinePayment(int id, string authority, string status)
+        {
+            int userid = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var order = _orderService.UnpaidOrder(userid);
+            String MerchantID = "c7ac16b3-a161-435f-ac0d-4e308c60d95c";
+
+
+            if (status == "NOK")
+            {
+
+                ViewBag.Text = "Transaction unsuccessful.";
+            }
+
+            else if (status == "OK")
+            {
+
+                var request = new ZarinpalModelV4.Verify.Request
+                {
+                    MerchantId = MerchantID,
+                    Authority = authority,
+                    Amount = order.orderSum * 10
+                };
+
+                var response = RestApiVer4.Verify(request);
+
+                if (response.Data.Code == 100) // موفقیت امیز
+                {
+                    ViewBag.IsSuccess = true;
+                    ViewBag.code = $"شماره تراکنش: {response.Data.RefId}";
+
+
+                }
+                else if (response.Data.Code == 101) // تکرار تراکنشی که موفقیت امیز بوده
+                {
+                    ViewBag.IsSuccess = true;
+                    ViewBag.code = $"شماره تراکنش: {response.Data.RefId}";
+                }
+                else // خطا
+                {
+
+                    ViewBag.Error = $"Transaction unsuccessful. Status: {response.Data.Code}";
+                }
+            }
+
+            return View();
+        }
+
+
         #endregion
     }
 }

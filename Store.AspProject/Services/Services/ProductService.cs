@@ -113,7 +113,13 @@ namespace Store.AspProject.Services.Services
             return true;
         }
 
-        
+        public List<Product> GetProductBySearch(string Title)
+        {
+           return _context.products.Where(o=>o.ProductTitle.Contains(Title) || o.ProductHeadTitle.Contains(Title)
+           || o.Tags.Contains(Title)).ToList();
+        }
+
+
         #endregion
     }
 }

@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Store.AspProject.Services.Interfces;
 using System.Security.Claims;
+using ZarinpalRestApi.Models;
+using ZarinpalRestApi.ZarinPack;
 
 namespace Store.AspProject.Controllers
 {
@@ -52,9 +54,11 @@ namespace Store.AspProject.Controllers
         {
            var res= _orderService.DeleteOrderDetail(OrderDetailId);
             int userid = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            if (_orderService.CheckOrderHasvalue(userid))
+           var order=_orderService.UnpaidOrder(userid); 
+            if (!_orderService.CheckOrderHasvalue(userid))
             {
-                return View();
+                _orderService.UpdateOrdersum(order.OrderId);
+                return RedirectToAction("index");   
             }
 
             _orderService.DeleteOrder(userid);
@@ -62,5 +66,33 @@ namespace Store.AspProject.Controllers
             return RedirectToAction("index");   
         }
 
+        [Route("/Product/Paymentrequest/{orderId}")]
+        public IActionResult Paymentrequest(int orderId)
+        {
+            int userid = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var order = _orderService.UnpaidOrder(userid);
+
+            String MerchantID = "c7ac16b3-a161-435f-ac0d-4e308c60d95c";
+            long Amount = order.orderSum;
+            String Description = "شارژ حساب";
+            var request = new ZarinpalModelV4.Payment.Request
+            {
+                Amount = Amount,
+                CallbackUrl = $"{ Request.Scheme }://{Request.Host}/OnlinePayment/{order.OrderId}",
+                Description = Description,
+                MerchantId = MerchantID
+                
+            };
+            var response = RestApiVer4.PaymentRequest(request);
+
+            if (response.Data.Code == 100)
+            {
+                var gatewayLink = RestApiVer4.GenerateGatewayLink(response.Data.Authority);
+                return Redirect(gatewayLink);
+            }
+
+            ViewBag.Message = response.Data.Code;
+            return View("Successfull");
+        }
     }
 }
