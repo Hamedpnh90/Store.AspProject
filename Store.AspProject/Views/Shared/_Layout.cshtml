@@ -35,7 +35,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#">محصولات</a>
+                                            <a class="nav-link" href="/">محصولات</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="#">تماس  با ما</a>
@@ -63,9 +63,10 @@
                                     {
 
 
-                                        <a class="btn btn-outline-info" asp-controller="UserPanel" asp-action="index">ورود به پنل @User.Identity.Name </a>
-                                        <a class="btn btn-outline-danger" asp-controller="Account" asp-action="LogOut">خروج</a>
-                                        <a class="btn btn-outline-success" asp-controller="Product" asp-action="Index">سبد خرید</a>
+                                        <a class="btn btn-outline-info" href="/userpanel">ورود به پنل @User.Identity.Name </a>
+                                       
+                                        <a class="btn btn-outline-success" href="/product">سبد خرید</a>
+                                         <a class="btn btn-outline-danger" asp-controller="Account" asp-action="LogOut" asp-area="">خروج</a>
                                     }
                                     else
                                     {

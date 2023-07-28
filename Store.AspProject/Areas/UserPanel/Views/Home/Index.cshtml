@@ -1,82 +1,97 @@
-﻿@using Store.AspProject.Services.Interfces
+﻿@using Store.AspProject.DataLayer.Models.user
+@using Store.AspProject.Services.Interfces
 @using System.Security.Claims
-
+@using Store.AspProject.Utilites
+@model user
 @inject IOrderService OrderService;
 @{
-    var order = OrderService.UnpaidOrder(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
+    var order = OrderService.ShowOrdersDetailByUserId(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
 }
 
 <div class="row">
 
 
-    <div class="col-4">
+    <div class="col-3">
 
-        <div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">An item</li>
-    <li class="list-group-item">A second item</li>
-    <li class="list-group-item">A third item</li>
-  </ul>
-  <div class="card-body">
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
-  </div>
-</div>
+        <div class="card" style="width: 20rem;">
+           
+            <div class="card-body">
+                <h5 class="card-title">@(Model.IsAdmin?"مدیر":"کاربر عادی")</h5>
+            
+            </div>
+            <ul class="list-group list-group-flush"> ایمیل:
+                <li class="list-group-item">@Model.UserEmail</li>
+                
+                
+                
+            </ul>
+             <ul class="list-group list-group-flush">موبایل:
+                
+                <li class="list-group-item">@Model.UserMobile</li>
+               
+                
+            </ul>
+              <ul class="list-group list-group-flush">نام کاربری:
+                
+                <li class="list-group-item">@Model.user_name</li>
+               
+                
+            </ul>
+            <div class="card-body">
+                <a href="/Logout" class="btn btn-danger">خروج</a>
+             
+            </div>
+        </div>
 
     </div>
 
 
 
-    <div class="col-8">
+    <div class="col-9">
         <section class="content">
 
-            @if (Model != null)
+            @if (order.Count != 0)
             {
                 <div class="row justify-content-center">
-                    <div class="col-8 ">
-                        <div class="box">
-                            <div class="box-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover no-wrap myTable">
-                                        <thead>
-                                            <tr class="bg-secondary">
-                                                <th scope="col"> شماره فاکتور</th>
+                    <div class="col-6 ">
+                        <div class="col-12">
+                            <div class="box">
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover no-wrap myTable">
+                                            <thead>
+                                                <tr class="bg-secondary">
+                                                    <th scope="col">  تصویر</th>
+                                                    <th scope="col">  عنوان</th>
+                                                    <th scope="col">تعداد</th>
+                                                    <th scope="col">قیمت</th>
 
-                                                <th scope="col"> جمع فاکتور</th>
-                                                <th scope="col">وضعیت</th>
-                                                <th scope="col">دستورات</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
-                                            @if (Model != null && Model.Any())
-                                            {
-                                                @foreach (var item in @Model)
+                                                @if (order != null)
                                                 {
-                                                    <tr>
-                                                        <th>@item.OrderId</th>
+                                                    @foreach (var item in order)
+                                                    {
+                                                        <tr>
+                                                            <th> <img src="@($"{ImagesfilePath.ProductImage}{item.product.ImageName}")" class="img-thumbnail" style="max-width:100px;height:100px" /></th>
+                                                            <th>@item.product.ProductTitle</th>
 
-                                                        <td>@item.orderSum</td>
-                                                        <td>
-                                                            <p>
-                                                                @(item.IsFinally?"پرداخت شده":"پرداخت نشده")
-                                                            </p>
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn btn-warning" href="/Product/ShowOrderDetail/@item.OrderId">نمایش اقلام</a>
-                                                            <a class="btn btn-success" href="/Product/Paymentrequest/@item.OrderId">پرداخت</a>
-                                                        </td>
-                                                    </tr>
+                                                            <td>@item.Count</td>
+                                                            <td>
+                                                                <p>
+                                                                    @item.Price
+                                                                </p>
+                                                            </td>
+
+                                                        </tr>
+                                                    }
                                                 }
-                                            }
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -86,9 +101,9 @@
 
             else
             {
-                <div class="alert alert-danger">
+                <div class="alert alert-danger" style="width:20rem">
                     <p>
-                        هیچ فاکتوری برای نمایش وجود ندارد
+                        شما فاکتور پرداخت شده ای ندارید
                     </p>
                 </div>
 

@@ -142,6 +142,11 @@ namespace Store.AspProject.Services.Services
            
         }
 
+        public List<OrderDetails> ShowOrdersDetailByUserId(int UserId)
+        {
+            return _context.OrderDetails.Include(o => o.product).Where(o => o.order.userId == UserId && o.order.IsFinally).ToList();
+        }
+
         public Order UnpaidOrder(int UserId)
         {
             return _context.Order.FirstOrDefault(o => o.userId == UserId && !o.IsFinally);

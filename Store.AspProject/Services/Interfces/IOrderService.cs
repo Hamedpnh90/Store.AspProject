@@ -27,6 +27,7 @@ namespace Store.AspProject.Services.Interfces
 
 
         List<OrderDetails> ShowOrderDetail(int OrderId);
+        List<OrderDetails> ShowOrdersDetailByUserId(int UserId);
 
 
         bool CheckOrderHasvalue(int userId);
