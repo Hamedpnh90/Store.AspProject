@@ -1,5 +1,5 @@
 ﻿using Store.AspProject.DataLayer.Models.user;
-
+using Store.AspProject.DataLayer.Models.UserM;
 using Store.AspProject.DataLayer.UserViewModel;
 
 namespace Store.AspProject.Services.Interfces
@@ -31,6 +31,9 @@ namespace Store.AspProject.Services.Interfces
 
         bool IsUserExist(string Email);
 
-        bool IsUserNameExist(string UserName);  
+        bool IsUserNameExist(string UserName);
+
+
+        bool AddEmail(string Email);
     }
 }

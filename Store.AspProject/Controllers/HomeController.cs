@@ -4,13 +4,14 @@ using System.Diagnostics;
 
 namespace Store.AspProject.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AdminbaseController
     {
         private readonly IProductService _productService;
-
-        public HomeController(IProductService productService)
+        IUserService _userService;
+        public HomeController(IProductService productService, IUserService userService)
         {
             _productService = productService;
+            _userService = userService; 
         }
 
         public IActionResult Index()
@@ -24,8 +25,25 @@ namespace Store.AspProject.Controllers
             return View(_productService.GetProductBySearch(Title));
         }
 
+        public IActionResult Submitemail(string Emailval)
+        {
+            
+
+            if(Emailval!=null)
+            {
+                     _userService.AddEmail(Emailval);
+               
+                    return new JsonResult(new { status = "success" });
+               
+               
+            }
 
         
+
+            return new JsonResult(new { status = "Error" });
+            
+
+        }
 
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,0 +1,48 @@
+﻿@if (
+
+          TempData["SuccessMsg"] != null||
+          TempData["WarningMsg"] != null||
+          TempData["InfoMsg"] != null||
+          TempData["ErrorMsg"] != null
+)
+{
+    if(TempData["SuccessMsg"] != null)
+    {
+        <script>
+            $(document).ready(function () {
+                ShowMessage('پیغام موفقیت', '@TempData["SuccessMsg"]', 'success')
+            });
+            </Script>
+
+    }
+     if(TempData["WarningMsg"] != null)
+    {
+        <script>
+            $(document).ready(function() {
+    
+                ShowMessage('اخطار','@TempData["WarningMsg"]','warning')
+            });
+            </Script>
+
+    }
+     if(TempData["InfoMsg"] != null)
+    {
+        <script>
+            $(document).ready(function() {
+    
+                ShowMessage('راهنما','@TempData["InfoMsg"]','info')
+            });
+            </Script>
+
+    }
+     if(TempData["ErrorMsg"] != null)
+    {
+        <script>
+            $(document).ready(function() {
+    
+                ShowMessage('خطا','@TempData["ErrorMsg"]','Error')
+            });
+            </Script>
+
+    }
+}

@@ -10,10 +10,11 @@
 
 
     <link rel="stylesheet" href="~/css/MyCss.css" asp-append-version="true" />
+    <link rel="stylesheet" href="/lib/notification/notifications.css" asp-append-version="true" />
 
     <link rel="stylesheet" href="~/Store.AspProject.styles.css" asp-append-version="true" />
 </head>
-<body dir="rtl">
+<body dir="rtl" onload="loadingpage()">
     <div class="row">
         <header style="background-color:#686dc3">
             <div class="row">
@@ -127,8 +128,8 @@
                             <div class="col-4">
                                 <div class="container d-flex justify-content-start py-2">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder="پست الکترونیکی شما" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                        <button class="btn btn-primary" type="button" id="button-addon2">عضویت در خبرنامه</button>
+                                        <input type="text" id="Emailval" class="form-control" placeholder="پست الکترونیکی شما" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        <button class="btn btn-primary" onclick="subEmail()" type="button" >عضویت در خبرنامه</button>
                                     </div>
                                 </div>
                             </div>
@@ -151,13 +152,16 @@
     </footer>
     </div>
 
-
+    <partial name="_MessagePartial" />
+     <script src="~/lib/notification/notifications.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="/js/custom.js"></script>
+    <script src="https://appuals.com/wp-content/litespeed/localres/aHR0cHM6Ly9jb2RlLmpxdWVyeS5jb20vjquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>*@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/js/style.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

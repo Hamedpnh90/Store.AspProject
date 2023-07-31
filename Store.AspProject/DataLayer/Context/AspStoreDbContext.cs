@@ -2,7 +2,7 @@
 using Store.AspProject.DataLayer.Models.Order;
 using Store.AspProject.DataLayer.Models.Product;
 using Store.AspProject.DataLayer.Models.user;
-
+using Store.AspProject.DataLayer.Models.UserM;
 
 namespace Store.AspProject.DataLayer.Context
 {
@@ -27,6 +27,7 @@ namespace Store.AspProject.DataLayer.Context
         public DbSet<ProductGroup> productGroups { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
+        public DbSet<UserEmail> UserEmails { get; set; }
 
         //ISet<TEntity> IDbContext.Set<TEntity>()
         //{

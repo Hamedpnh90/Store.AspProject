@@ -1,5 +1,6 @@
 ﻿using Store.AspProject.DataLayer.Context;
 using Store.AspProject.DataLayer.Models.user;
+using Store.AspProject.DataLayer.Models.UserM;
 using Store.AspProject.DataLayer.UserViewModel;
 using Store.AspProject.Services.Interfces;
 using Store.AspProject.Utilites;
@@ -155,7 +156,19 @@ namespace Store.AspProject.Services.Services
 
         }
 
-      
+        public bool AddEmail(string Email)
+        {
+            if(Email==null) return false;
+            _context.UserEmails.Add(new UserEmail()
+            {
+                Email = Email,
+                IsDeleted=false
+            }); 
+            _context.SaveChanges(); 
+            return true;    
+        }
+
+
 
 
 
