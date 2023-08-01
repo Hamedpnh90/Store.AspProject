@@ -4,7 +4,24 @@
 @model IEnumerable<Product>
 
 
+
+
+    @if(ViewBag.res==true)
+    {
+        <div class="alert alert-danger">
+        <p>
+        محصول مورد نظر با موفقیت حذف شد
+        </p>
+        </div>
+    }
+
+
+
+
+
 <a href="/admin/Product/Create" class="btn btn-success">افزودن</a>
+
+
 
 
         <table class="table">
@@ -32,8 +49,8 @@
                         <td>@item.ProductGroup.GroupName</td>
 
                         <td>
-                            <a href="/admin/Product/Delete/@item.GroupId">حذف</a>
-                            <a href="/admin/Product/Edit/@item.GroupId">ویرایش</a>
+                            <a class="btn btn-danger" href="/admin/Product/Delete/@item.ProductId">حذف</a>
+                            <a class="btn btn-warning" href="/admin/Product/EditProduct/@item.ProductId">ویرایش</a>
                         </td>
                     </tr>
                 }

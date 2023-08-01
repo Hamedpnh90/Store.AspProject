@@ -27,7 +27,12 @@ namespace Store.AspProject.Services.Services
 
         public bool DeletProduct(int Id)
         {
-            throw new NotImplementedException();
+          var product=  GetProductById(Id);
+
+            _context.Remove(product);   
+            _context.SaveChanges();
+
+            return true;
         }
 
         public bool DeletProductGroup(int Id)
@@ -91,6 +96,39 @@ namespace Store.AspProject.Services.Services
 
             return product.ProductId;
         }
+
+        public int EditProduct(int id, Product product, IFormFile? Img)
+        {
+            if (Img != null)
+            {
+                if (product.ImageName != "Default.jpg")
+                {
+                    string deletePath =
+                              ImagesfilePath.ProductImageServer +
+                              product.ImageName;
+                    if (System.IO.File.Exists(deletePath))
+                    {
+                        System.IO.File.Delete(deletePath);
+                    }
+                }
+                string ImageName = CodeGenrator.GenratinUniqCode() + Path.GetExtension(Img.FileName);
+                string ImagePath = ImagesfilePath.ProductImageServer + ImageName;
+                using (var stream = new FileStream(ImagePath, FileMode.Create))
+                {
+                    Img.CopyTo(stream);
+                }
+                product.ImageName = ImageName;
+            }
+           
+
+          
+            product.CreateDate = DateTime.Now;
+            _context.Update(product);
+            _context.SaveChanges();
+
+            return product.ProductId;
+        }
+
         public List<ProductGroup> GetAll()
         {
             return _context.productGroups.ToList(); 
@@ -118,6 +156,8 @@ namespace Store.AspProject.Services.Services
            return _context.products.Where(o=>o.ProductTitle.Contains(Title) || o.ProductHeadTitle.Contains(Title)
            || o.Tags.Contains(Title)).ToList();
         }
+
+       
 
 
         #endregion

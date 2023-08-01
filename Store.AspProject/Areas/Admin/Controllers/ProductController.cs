@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Store.AspProject.DataLayer.Context;
 using Store.AspProject.DataLayer.Models.Product;
 using Store.AspProject.Services.Interfces;
+using Store.AspProject.Utilites;
 
 namespace Store.AspProject.Areas.Admin.Controllers
 
@@ -23,8 +24,9 @@ namespace Store.AspProject.Areas.Admin.Controllers
             _context = context;
         }
         
-        public IActionResult Index()
+        public IActionResult Index(bool res=false)
         {
+            ViewBag.res = res;
             return View(_productService.GetAllProduct());
         }
 
@@ -48,6 +50,52 @@ namespace Store.AspProject.Areas.Admin.Controllers
             ViewData["GroupId"] = new SelectList(_context.productGroups, "GroupId", "GroupName", product.GroupId);
             return View(product);
 
+        }
+
+
+        
+        public IActionResult EditProduct(int id)
+        {
+
+           var produvt= _productService.GetProductById(id);  
+
+            if(produvt == null) return NotFound();
+
+            ViewData["GroupId"] = new SelectList(_context.productGroups, "GroupId", "GroupName", produvt.GroupId);
+            return View(produvt);
+
+
+            
+        }
+
+        [HttpPost]
+        public IActionResult EditProduct(int id, Product product, IFormFile? imgUp)
+        {
+
+          if(id!=product.ProductId) return BadRequest();
+
+          var res= _productService.EditProduct(id,product,imgUp);        
+
+            if(res!=null) return RedirectToAction("Index");
+
+            return View(product);
+        
+       }
+
+
+        public IActionResult Delete(int id)
+        {
+
+          var res=  _productService.DeletProduct(id);
+          
+           
+            if(res) return RedirectToAction("index", "Product", new
+            {
+                res = res
+            });
+
+
+            return BadRequest();
         }
     }
 }

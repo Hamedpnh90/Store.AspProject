@@ -28,6 +28,7 @@ namespace Store.AspProject.Services.Interfces
 
         int AddProduct(Product product, IFormFile Img);
 
+        int EditProduct(int id,Product product, IFormFile? Img);
         List<Product> GetAllProduct();
 
         Product GetProductById(int id);
