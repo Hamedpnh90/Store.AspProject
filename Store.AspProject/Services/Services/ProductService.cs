@@ -136,8 +136,13 @@ namespace Store.AspProject.Services.Services
 
         public List<Product> GetAllProduct()
         {
+
+            
             return _context.products.Include(p=>p.ProductGroup).ToList();
         }
+
+
+
 
         public Product GetProductById(int id)
         {
@@ -157,7 +162,29 @@ namespace Store.AspProject.Services.Services
            || o.Tags.Contains(Title)).ToList();
         }
 
-       
+        public Tuple<List<Product>, int> GetAllProductForPaging(int PageId = 1, string? Title = "")
+        {
+            var take = 2;
+            int skip = (PageId - 1) * take;
+
+            IQueryable<Product> result = _context.products;
+
+            if(!string.IsNullOrEmpty(Title))
+            {
+                result=result.Where(p=>p.ProductTitle.Contains(Title));    
+            }
+
+           int pagecount= result.Count() / take;
+         
+
+            var query=result.Skip(skip).Take(take).ToList();
+
+            return Tuple.Create(query, pagecount);  
+        }
+
+
+
+
 
 
         #endregion

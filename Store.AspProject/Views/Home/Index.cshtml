@@ -1,14 +1,17 @@
-﻿@using Store.AspProject.Services.Interfces
+﻿@using Store.AspProject.DataLayer.Models.Product
+@using Store.AspProject.Services.Interfces
+
+@model Tuple<List<Product>,int>
 @{
     ViewData["Title"] = "Home Page";
 }
- @inject IProductService  ProductService;
+@inject IProductService ProductService;
 
 <header class="headerlanda  ml-1 border border-info justify-content-center" onload="loadingpage()">
     <div class="  d-flex justify-content-center p-2 " @*style="border:1px solid black"*@>
 
         <div class="row p-0 text-center ">
-            <div class="col-md-12  " >
+            <div class="col-md-12  ">
                 <div class="display-2">
                     <div class="display-tc animate-box fadeIn animated-fast" data-animate-effect="fadeIn">
                         <p>
@@ -16,48 +19,67 @@
                         </p>
 
                         <div class="row" style="width:50rem">
-                            <form class="d-flex " asp-controller="home" asp-action="Search">
-                                <input class="form-control me-sm-2"  type="search" name="Title" placeholder="جستوجو">
+                            <form class="d-flex " asp-controller="home">
+                                <input class="form-control me-sm-2" type="search" name="Title" placeholder="جستوجو">
                                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">جستوجو</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-     </div>
-     </div>
+        </div>
+    </div>
 </header>
 <div class="container ">
-                <div class="row ">
-                    @*Aside*@
-                   
+    <div class="row ">
+        @*Aside*@
 
 
-                    @await Component.InvokeAsync("ShowGroups")
+
+        @await Component.InvokeAsync("ShowGroups")
 
 
-                    @*EndAside*@
-                    @*Main*@
-                    <div class="main col-9">
+        @*EndAside*@
+        @*Main*@
+        <div class="main col-9">
 
 
-                        <div class="row">
-                            @{
-                                var res = ProductService.GetAllProduct();
-                            }
-                         @foreach (var item in res)
-                         {
-                             <partial name="BoxPartial" model="@item" />
-                         }
-                            
+            <div class="row">
+                @{
+                    var res = ProductService.GetAllProduct();
+                }
+                @foreach (var item in @Model.Item1)
+                {
+                    <partial name="BoxPartial" model="@item" />
+                }
 
 
-                        </div>
 
-                    </div>
-                    @*EndMain*@
-                </div>
             </div>
-       
+           
+            @if (Model.Item2> 1)
+            {
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                     
+                        @for(int i=1;i<=@Model.Item2;i++)
+                        {
+                            
+                            <li class="page-item"><a class="page-link" href="/home?pageId=@i">@i</a></li>
+
+                        }
+                    
+                    </ul>
+                </nav>
+            }
+
+        </div>
+        @*EndMain*@
+    </div>
+
+
+
+</div>
+
 
 

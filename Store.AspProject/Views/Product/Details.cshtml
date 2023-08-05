@@ -1,7 +1,7 @@
 ﻿@using Store.AspProject.DataLayer.Models.Product
 @using Store.AspProject.Utilites
+@using Stores.Core.Convertor
 @model Product
-
 
 
 
@@ -9,7 +9,7 @@
 <div class="contanier ">
 
 
-      <div class="row">
+    <div class="row">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">خانه</a></li> /
@@ -20,27 +20,49 @@
 
 
 
-<div class="row justify-content-center ">
-
-<div class="col-6 border-3">
-        <img src="@($"{ImagesfilePath.ProductImage}{Model.ImageName}")"  class="img-thumbnail" />
-    <div class="p-1 ">
-        <h4 class="card-title align-content-around">@Model.ProductTitle</h4>
-        <p class="card-text">@Html.Raw(@Model.ProductDescription)  </p>
-
-
-    </div>
     <div class="row justify-content-center ">
-        <div class="p-0 m-2 ">
-            <a class="btn btn-outline-success btn btn-xl" href="/Product/shopingCart/@Model.ProductId">
-                خرید
-            </a>
+
+        <div class="col-6 ">
+
+
+
+
+            <div class="card mb-1" style="max-width: 100%;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="@($"{ImagesfilePath.ProductImage}{Model.ImageName}")" class="img-thumbnail" />
+                    </div>
+                    <div class="col-md-5">
+                        <div class="card-body">
+                            <h5 class="card-title">@Model.ProductTitle</h5>
+                            <p class="card-text">@Html.Raw(@Model.ProductDescription) </p>
+                            <p class="card-text"><small class="text-body-secondary">@Model.CreateDate?.toshamsi()</small></p>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="max-width: 150px; ">
+
+                       <div class="row">
+                            <button class="btn btn-success btn-lg btn-block" href="/Product/shopingCart/@Model.ProductId" >
+                            خرید
+                        </button>
+                       </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+           
+
         </div>
 
+
+
+
+
     </div>
-</div>
-
-
-
-</div>
 </div>

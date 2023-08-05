@@ -14,9 +14,11 @@ namespace Store.AspProject.Controllers
             _userService = userService; 
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pageId=1,string? Title="")
         {
-            return View();
+            
+         
+            return View(_productService.GetAllProductForPaging(pageId,Title));
         }
 
         public IActionResult Search(string Title)

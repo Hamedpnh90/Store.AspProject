@@ -29,7 +29,10 @@ namespace Store.AspProject.Services.Interfces
         int AddProduct(Product product, IFormFile Img);
 
         int EditProduct(int id,Product product, IFormFile? Img);
+
+
         List<Product> GetAllProduct();
+        Tuple<List<Product>,int> GetAllProductForPaging(int PageId=1,string? Title="");
 
         Product GetProductById(int id);
 
